@@ -1,0 +1,47 @@
+import type { MessageCatalog } from "../messages";
+
+export const pt: MessageCatalog = {
+  "language.name.pt": "Portugues",
+  "language.name.en": "Ingles",
+  "language.name.es": "Espanhol",
+  "home.greeting": "Bem-vindo ao SeniorEase. Aqui tudo e mais simples e claro.",
+  "home.hub.subtitle": "Escolha uma opcao para comecar.",
+  "nav.title.home": "Inicio",
+  "nav.destination.activities.label": "Atividades",
+  "nav.destination.activities.description": "Veja e gerencie suas tarefas.",
+  "nav.destination.personalization.label": "Personalizacao",
+  "nav.destination.personalization.description":
+    "Ajuste o texto, o contraste e o idioma.",
+  "nav.destination.profile.label": "Perfil",
+  "nav.destination.profile.description": "Seus dados e preferencias.",
+  "nav.home.resume": "Continuar de onde parou: {destination}",
+  "nav.back": "Voltar",
+  "placeholder.comingSoon":
+    "Esta secao esta a caminho. Em breve voce podera usa-la aqui.",
+  "home.personalization.title": "Personalizacao",
+  "home.personalization.fontSize": "Tamanho da fonte: {percent}%",
+  "home.personalization.fontSizeA11y": "Tamanho da fonte em {percent} por cento",
+  "home.personalization.decreaseFontA11y": "Diminuir tamanho da fonte",
+  "home.personalization.increaseFontA11y": "Aumentar tamanho da fonte",
+  "home.personalization.contrast": "Contraste: {level}",
+  "home.personalization.contrastToggle": "Alternar contraste",
+  "home.contrast.standard": "Alto",
+  "home.contrast.high": "Maximo",
+  "home.language.title": "Idioma",
+  "home.language.toggle": "Mudar idioma: {language}",
+  "home.restartTour": "Rever tour guiado",
+  "tour.step.welcome.title": "Bem-vindo",
+  "tour.step.welcome.description":
+    "Este e um passo a passo rapido para voce conhecer a tela com calma.",
+  "tour.step.fontSize.title": "Ajuste o tamanho do texto",
+  "tour.step.fontSize.description":
+    "Use os botoes A- e A+ para deixar as letras do jeito que voce le melhor.",
+  "tour.step.contrast.title": "Ajuste o contraste",
+  "tour.step.contrast.description":
+    "Toque em alternar contraste para deixar a tela mais facil de enxergar.",
+  "tour.controls.previous": "Anterior",
+  "tour.controls.next": "Proximo",
+  "tour.controls.finish": "Concluir",
+  "tour.controls.skip": "Pular tour",
+  "tour.controls.step": "Passo {current} de {total}",
+};

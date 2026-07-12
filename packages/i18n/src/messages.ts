@@ -1,0 +1,45 @@
+/**
+ * Contrato de mensagens. Cada catalogo de idioma deve implementar todas as
+ * chaves (garantido pelo tipo MessageCatalog), evitando traducoes faltantes.
+ */
+export type MessageKey =
+  | "language.name.pt"
+  | "language.name.en"
+  | "language.name.es"
+  | "home.greeting"
+  | "home.hub.subtitle"
+  | "nav.title.home"
+  | "nav.destination.activities.label"
+  | "nav.destination.activities.description"
+  | "nav.destination.personalization.label"
+  | "nav.destination.personalization.description"
+  | "nav.destination.profile.label"
+  | "nav.destination.profile.description"
+  | "nav.home.resume"
+  | "nav.back"
+  | "placeholder.comingSoon"
+  | "home.personalization.title"
+  | "home.personalization.fontSize"
+  | "home.personalization.fontSizeA11y"
+  | "home.personalization.decreaseFontA11y"
+  | "home.personalization.increaseFontA11y"
+  | "home.personalization.contrast"
+  | "home.personalization.contrastToggle"
+  | "home.contrast.standard"
+  | "home.contrast.high"
+  | "home.language.title"
+  | "home.language.toggle"
+  | "home.restartTour"
+  | "tour.step.welcome.title"
+  | "tour.step.welcome.description"
+  | "tour.step.fontSize.title"
+  | "tour.step.fontSize.description"
+  | "tour.step.contrast.title"
+  | "tour.step.contrast.description"
+  | "tour.controls.previous"
+  | "tour.controls.next"
+  | "tour.controls.finish"
+  | "tour.controls.skip"
+  | "tour.controls.step";
+
+export type MessageCatalog = Record<MessageKey, string>;
