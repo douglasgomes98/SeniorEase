@@ -88,7 +88,7 @@ describe("preferences-store", () => {
     expect(state.stored?.notifications).toEqual({
       enabled: true,
       leadTimeMinutes: 60,
-      channel: "in-app",
+      channel: "both",
       quietHours: null,
     });
   });

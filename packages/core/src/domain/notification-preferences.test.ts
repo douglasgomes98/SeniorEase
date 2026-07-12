@@ -12,7 +12,7 @@ describe("notification-preferences", () => {
     expect(DEFAULT_NOTIFICATION_PREFERENCES).toEqual({
       enabled: false,
       leadTimeMinutes: 30,
-      channel: "in-app",
+      channel: "both",
       quietHours: null,
     });
   });

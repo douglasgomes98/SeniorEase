@@ -30,10 +30,11 @@ export interface NotificationPreferences {
 export const NOTIFICATION_LEAD_TIME_DEFAULT: NotificationLeadTime = 30;
 
 /**
- * Canal padrao "in-app": menor privilegio (nenhuma permissao do sistema
- * operacional ate o usuario optar por notificacoes do sistema no perfil).
+ * Canal padrao "both": entrega no app e no sistema operacional. A entrega pelo
+ * sistema so acontece de fato depois que o usuario liga as notificacoes e concede
+ * a permissao (fluxo dos lembretes) - ate la nada e enviado por fora do app.
  */
-export const NOTIFICATION_CHANNEL_DEFAULT: NotificationChannel = "in-app";
+export const NOTIFICATION_CHANNEL_DEFAULT: NotificationChannel = "both";
 
 export const DEFAULT_NOTIFICATION_PREFERENCES: NotificationPreferences = {
   enabled: false,
