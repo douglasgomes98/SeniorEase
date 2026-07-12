@@ -18,6 +18,7 @@
     "@senior-ease/ui": "workspace:*",
     "expo": "~52.0.0",
     "expo-font": "~13.0.4",
+    "expo-haptics": "~14.0.1",
     "expo-status-bar": "~2.0.0",
     "react": "18.3.1",
     "react-native": "0.76.9",

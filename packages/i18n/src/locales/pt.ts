@@ -30,6 +30,9 @@ export const pt: MessageCatalog = {
   "home.language.title": "Idioma",
   "home.language.toggle": "Mudar idioma: {language}",
   "home.restartTour": "Rever tour guiado",
+  "feedback.fontSize": "Pronto! Tamanho da fonte atualizado.",
+  "feedback.contrast": "Pronto! Contraste atualizado.",
+  "feedback.language": "Pronto! Idioma atualizado.",
   "tour.step.welcome.title": "Bem-vindo",
   "tour.step.welcome.description":
     "Este e um passo a passo rapido para voce conhecer a tela com calma.",

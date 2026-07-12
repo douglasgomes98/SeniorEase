@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { usePreferences, useTour } from "@senior-ease/core";
+import { useFeedback, usePreferences, useTour } from "@senior-ease/core";
 import {
   nextLocale,
   useTranslation,
@@ -25,6 +25,7 @@ export function PersonalizationScreen() {
   const decreaseFontScale = usePreferences((state) => state.decreaseFontScale);
   const toggleContrast = usePreferences((state) => state.toggleContrast);
   const setLocale = usePreferences((state) => state.setLocale);
+  const announce = useFeedback((state) => state.announce);
 
   const steps = useTour((state) => state.steps);
   const progress = useTour((state) => state.progress);
@@ -58,6 +59,26 @@ export function PersonalizationScreen() {
   const upcomingLanguageKey: MessageKey = `language.name.${upcomingLocale}`;
   const upcomingLanguageName = t(upcomingLanguageKey);
 
+  // Demonstracao do mecanismo de feedback: cada acao de personalizacao muda o
+  // estado e confirma via announce, com copy positiva e traduzida. Ate o painel
+  // real (F07) assumir estas acoes, este e o consumidor de referencia do F05.
+  const handleIncreaseFont = () => {
+    increaseFontScale();
+    announce(t("feedback.fontSize"));
+  };
+  const handleDecreaseFont = () => {
+    decreaseFontScale();
+    announce(t("feedback.fontSize"));
+  };
+  const handleToggleContrast = () => {
+    toggleContrast();
+    announce(t("feedback.contrast"));
+  };
+  const handleToggleLanguage = () => {
+    setLocale(upcomingLocale);
+    announce(t("feedback.language"));
+  };
+
   const labels: HomeScreenViewProps["labels"] = {
     appName: "SeniorEase",
     greeting: t("home.greeting"),
@@ -78,10 +99,10 @@ export function PersonalizationScreen() {
   return (
     <HomeScreenView
       labels={labels}
-      onIncreaseFont={increaseFontScale}
-      onDecreaseFont={decreaseFontScale}
-      onToggleContrast={toggleContrast}
-      onToggleLanguage={() => setLocale(upcomingLocale)}
+      onIncreaseFont={handleIncreaseFont}
+      onDecreaseFont={handleDecreaseFont}
+      onToggleContrast={handleToggleContrast}
+      onToggleLanguage={handleToggleLanguage}
       onRestartTour={beginTour}
       tour={{
         active: progress.isActive,
