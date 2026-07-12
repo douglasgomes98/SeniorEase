@@ -1,0 +1,63 @@
+/* Fontes auto-hospedadas (respeita a CSP font-src 'self'): a interface usa
+   Atkinson Hyperlegible (desenhada para baixa visao) e os icones usam Material
+   Symbols Rounded. Nenhuma requisicao a CDN em runtime. */
+@font-face {
+  font-family: "Atkinson Hyperlegible";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/AtkinsonHyperlegible-Regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Atkinson Hyperlegible";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/AtkinsonHyperlegible-Bold.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Material Symbols Rounded";
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url("/fonts/MaterialSymbolsRounded.ttf") format("truetype");
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  /* Os primitivos ja aplicam a fonte via tema; este baseline cobre texto solto
+     e mantem a paridade com o Mobile. */
+  font-family: "Atkinson Hyperlegible", system-ui, -apple-system, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* react-native-web usa foco nativo; reforcamos um indicador visivel (WCAG 2.4.7)
+   com os mesmos valores dos tokens de foco (ringWidth 3 / ringOffset 2). */
+:focus-visible {
+  outline: 3px solid currentColor;
+  outline-offset: 2px;
+}
+
+/* Respeita a preferencia de reducao de movimento (WCAG 2.3.3) */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
