@@ -32,6 +32,12 @@ describe("Button", () => {
     expect(button).toHaveStyle({ backgroundColor: "rgb(27, 87, 176)" }); // accent #1B57B0
   });
 
+  it("applies the danger color role for the danger variant", () => {
+    renderThemed(<Button label="Excluir" onPress={() => {}} variant="danger" />);
+    const button = screen.getByRole("button");
+    expect(button).toHaveStyle({ backgroundColor: "rgb(166, 55, 26)" }); // danger #A6371A
+  });
+
   it("is keyboard-focusable (supports the visible focus ring)", () => {
     renderThemed(<Button label="Salvar" onPress={() => {}} />);
     expect(screen.getByRole("button")).toHaveAttribute("tabindex", "0");

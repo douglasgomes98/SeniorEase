@@ -6,7 +6,7 @@ import {
 import { useTheme } from "../theme/theme-context";
 import { Text } from "./Text";
 
-export type ButtonVariant = "primary" | "secondary" | "ghost";
+export type ButtonVariant = "primary" | "secondary" | "ghost" | "danger";
 /** default -> controlHeight (52); large -> controlHeightLg (60); piso 48dp. */
 export type ButtonSize = "default" | "large";
 
@@ -44,16 +44,20 @@ export function Button({
   const backgroundColor =
     variant === "primary"
       ? colors.accent
-      : variant === "secondary"
-        ? colors.surface
-        : "transparent";
+      : variant === "danger"
+        ? colors.danger
+        : variant === "secondary"
+          ? colors.surface
+          : "transparent";
   const borderColor = variant === "secondary" ? colors.line : "transparent";
   const labelColor =
     variant === "primary"
       ? colors.accentInk
-      : variant === "ghost"
-        ? colors.accent
-        : colors.ink;
+      : variant === "danger"
+        ? colors.dangerInk
+        : variant === "ghost"
+          ? colors.accent
+          : colors.ink;
 
   const controlHeight =
     size === "large" ? ergonomics.controlHeightLg : ergonomics.controlHeight;
