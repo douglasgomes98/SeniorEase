@@ -1,6 +1,7 @@
 import { useEffect, type ReactNode } from "react";
 import {
   StoresProvider,
+  useActivities,
   useNavigation,
   usePreferences,
   type AppStores,
@@ -11,6 +12,7 @@ import { ThemeProvider } from "@senior-ease/ui";
 function Localized({ children }: { children: ReactNode }) {
   const hydrate = usePreferences((state) => state.hydrate);
   const hydrateNavigation = useNavigation((state) => state.hydrate);
+  const hydrateActivities = useActivities((state) => state.hydrate);
   const locale = usePreferences((state) => state.locale);
   const contrast = usePreferences((state) => state.contrastLevel);
   const fontScale = usePreferences((state) => state.fontScale);
@@ -19,7 +21,8 @@ function Localized({ children }: { children: ReactNode }) {
   useEffect(() => {
     void hydrate();
     void hydrateNavigation();
-  }, [hydrate, hydrateNavigation]);
+    void hydrateActivities();
+  }, [hydrate, hydrateNavigation, hydrateActivities]);
 
   return (
     <I18nProvider locale={locale}>

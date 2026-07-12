@@ -1,11 +1,15 @@
 import {
+  createActivitiesStorage,
+  createActivitiesStore,
   createEnvelopeStorage,
   createNavigationStorage,
   createNavigationStore,
   createPreferencesStorage,
   createPreferencesStore,
   createTourStore,
+  LoadActivities,
   LoadPreferences,
+  SaveActivities,
   SavePreferences,
   type AppStores,
   type StoragePort,
@@ -31,6 +35,15 @@ export function createAppStores(storage: StoragePort): AppStores {
     savePreferences,
   });
 
+  const activitiesStorage = createActivitiesStorage(envelope);
+  const loadActivities = new LoadActivities(activitiesStorage);
+  const saveActivities = new SaveActivities(activitiesStorage);
+
+  const activities = createActivitiesStore({
+    loadActivities,
+    saveActivities,
+  });
+
   const tour = createTourStore({
     steps: HOME_TOUR_STEPS,
     onFinish: () => preferences.getState().setTourCompleted(true),
@@ -39,5 +52,5 @@ export function createAppStores(storage: StoragePort): AppStores {
   const navigationStorage = createNavigationStorage(storage);
   const navigation = createNavigationStore({ navigationStorage });
 
-  return { preferences, tour, navigation };
+  return { preferences, tour, navigation, activities };
 }
