@@ -1,6 +1,5 @@
 import { View } from "react-native";
 import { useTheme } from "../theme/theme-context";
-import { spacing } from "../tokens";
 import { Button } from "../components/Button";
 import { Text } from "../components/Text";
 
@@ -25,7 +24,7 @@ export function AppHeader({
   onBack,
   testID,
 }: AppHeaderProps) {
-  const { palette } = useTheme();
+  const { colors, space } = useTheme();
 
   return (
     <View
@@ -33,12 +32,12 @@ export function AppHeader({
       style={{
         flexDirection: "row",
         alignItems: "center",
-        gap: spacing.md,
-        paddingHorizontal: spacing.lg,
-        paddingVertical: spacing.md,
-        backgroundColor: palette.background,
+        gap: space.md,
+        paddingHorizontal: space.lg,
+        paddingVertical: space.md,
+        backgroundColor: colors.bg,
         borderBottomWidth: 2,
-        borderBottomColor: palette.border,
+        borderBottomColor: colors.line,
       }}
     >
       {showBack ? (

@@ -1,6 +1,5 @@
 import { Pressable, type StyleProp, type ViewStyle } from "react-native";
 import { useTheme } from "../theme/theme-context";
-import { MIN_TOUCH_TARGET, radii, spacing } from "../tokens";
 import { Stack } from "./Stack";
 import { Text } from "./Text";
 
@@ -26,7 +25,7 @@ export function DestinationCard({
   testID,
   style,
 }: DestinationCardProps) {
-  const { palette } = useTheme();
+  const { colors, space, radii, ergonomics } = useTheme();
 
   return (
     <Pressable
@@ -37,12 +36,12 @@ export function DestinationCard({
       accessibilityHint={accessibilityHint ?? description}
       style={({ pressed }) => [
         {
-          minHeight: MIN_TOUCH_TARGET,
-          padding: spacing.lg,
+          minHeight: ergonomics.touchTargetMin,
+          padding: space.lg,
           borderRadius: radii.lg,
           borderWidth: 2,
-          borderColor: palette.border,
-          backgroundColor: palette.surface,
+          borderColor: colors.line,
+          backgroundColor: colors.surface,
           opacity: pressed ? 0.85 : 1,
         },
         style,

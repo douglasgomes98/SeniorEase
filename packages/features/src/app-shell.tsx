@@ -14,6 +14,7 @@ function Localized({ children }: { children: ReactNode }) {
   const locale = usePreferences((state) => state.locale);
   const contrast = usePreferences((state) => state.contrastLevel);
   const fontScale = usePreferences((state) => state.fontScale);
+  const spacingScale = usePreferences((state) => state.spacingScale);
 
   useEffect(() => {
     void hydrate();
@@ -22,7 +23,11 @@ function Localized({ children }: { children: ReactNode }) {
 
   return (
     <I18nProvider locale={locale}>
-      <ThemeProvider contrast={contrast} fontScale={fontScale}>
+      <ThemeProvider
+        contrast={contrast}
+        fontScale={fontScale}
+        spacingScale={spacingScale}
+      >
         {children}
       </ThemeProvider>
     </I18nProvider>

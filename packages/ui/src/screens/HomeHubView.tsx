@@ -1,6 +1,5 @@
 import { View } from "react-native";
 import { useTheme } from "../theme/theme-context";
-import { radii, spacing } from "../tokens";
 import { DestinationCard } from "../components/DestinationCard";
 import { Button } from "../components/Button";
 import { Screen } from "../components/Screen";
@@ -40,7 +39,7 @@ export function HomeHubView({
   resume,
   testID,
 }: HomeHubViewProps) {
-  const { palette } = useTheme();
+  const { colors, space, radii } = useTheme();
 
   return (
     <Screen testID={testID ?? "home-hub"}>
@@ -57,11 +56,11 @@ export function HomeHubView({
         <View
           accessibilityRole="summary"
           style={{
-            backgroundColor: palette.surface,
-            borderColor: palette.primary,
+            backgroundColor: colors.surface,
+            borderColor: colors.accent,
             borderWidth: 2,
             borderRadius: radii.lg,
-            padding: spacing.md,
+            padding: space.md,
           }}
         >
           <Button
