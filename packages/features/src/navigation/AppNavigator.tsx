@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { BackHandler, View } from "react-native";
+import { BackHandler, Platform, View } from "react-native";
 import { useNavigation, type AppRoute } from "@senior-ease/core";
 import { useTranslation, type MessageKey } from "@senior-ease/i18n";
 import { AppHeader } from "@senior-ease/ui";
@@ -25,6 +25,11 @@ export function AppNavigator() {
   const back = useNavigation((state) => state.back);
 
   useEffect(() => {
+    // Voltar por hardware so existe no Android; em Web/iOS o unico voltar e o
+    // controle na tela, entao nem registramos o handler.
+    if (Platform.OS !== "android") {
+      return;
+    }
     const subscription = BackHandler.addEventListener("hardwareBackPress", () => {
       if (canGoBack) {
         back();
