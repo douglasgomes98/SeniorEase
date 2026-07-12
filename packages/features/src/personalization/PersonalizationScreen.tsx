@@ -1,5 +1,10 @@
 import { useEffect } from "react";
-import { useFeedback, usePreferences, useTour } from "@senior-ease/core";
+import {
+  useConfirm,
+  useFeedback,
+  usePreferences,
+  useTour,
+} from "@senior-ease/core";
 import {
   nextLocale,
   useTranslation,
@@ -25,7 +30,9 @@ export function PersonalizationScreen() {
   const decreaseFontScale = usePreferences((state) => state.decreaseFontScale);
   const toggleContrast = usePreferences((state) => state.toggleContrast);
   const setLocale = usePreferences((state) => state.setLocale);
+  const resetToDefaults = usePreferences((state) => state.resetToDefaults);
   const announce = useFeedback((state) => state.announce);
+  const confirm = useConfirm();
 
   const steps = useTour((state) => state.steps);
   const progress = useTour((state) => state.progress);
@@ -61,7 +68,7 @@ export function PersonalizationScreen() {
 
   // Demonstracao do mecanismo de feedback: cada acao de personalizacao muda o
   // estado e confirma via announce, com copy positiva e traduzida. Ate o painel
-  // real (F07) assumir estas acoes, este e o consumidor de referencia do F05.
+  // real assumir estas acoes, este e o consumidor de referencia do feedback.
   const handleIncreaseFont = () => {
     increaseFontScale();
     announce(t("feedback.fontSize"));
@@ -78,6 +85,24 @@ export function PersonalizationScreen() {
     setLocale(upcomingLocale);
     announce(t("feedback.language"));
   };
+  // Demonstracao do portao de confirmacao numa acao destrutiva provisoria: pede
+  // a decisao antes de restaurar tudo aos padroes. Confirmado -> reseta e
+  // confirma via announce; cancelado -> nada muda. Com as confirmacoes extras
+  // desligadas, o portao resolve direto e a acao segue sem dialogo.
+  const handleResetDefaults = async () => {
+    const confirmed = await confirm({
+      title: t("confirm.resetDefaults.title"),
+      message: t("confirm.resetDefaults.message"),
+      confirmLabel: t("confirm.resetDefaults.confirm"),
+      cancelLabel: t("common.cancel"),
+      tone: "danger",
+    });
+    if (!confirmed) {
+      return;
+    }
+    resetToDefaults();
+    announce(t("feedback.resetDefaults"));
+  };
 
   const labels: HomeScreenViewProps["labels"] = {
     appName: "SeniorEase",
@@ -91,6 +116,7 @@ export function PersonalizationScreen() {
     increaseFontA11y: t("home.personalization.increaseFontA11y"),
     contrast: t("home.personalization.contrast", { level: contrastName }),
     contrastToggle: t("home.personalization.contrastToggle"),
+    resetDefaults: t("home.personalization.resetDefaults"),
     languageTitle: t("home.language.title"),
     languageToggle: t("home.language.toggle", { language: upcomingLanguageName }),
     restartTour: t("home.restartTour"),
@@ -102,6 +128,7 @@ export function PersonalizationScreen() {
       onIncreaseFont={handleIncreaseFont}
       onDecreaseFont={handleDecreaseFont}
       onToggleContrast={handleToggleContrast}
+      onResetDefaults={handleResetDefaults}
       onToggleLanguage={handleToggleLanguage}
       onRestartTour={beginTour}
       tour={{

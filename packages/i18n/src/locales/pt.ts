@@ -4,6 +4,7 @@ export const pt: MessageCatalog = {
   "language.name.pt": "Portugues",
   "language.name.en": "Ingles",
   "language.name.es": "Espanhol",
+  "common.cancel": "Cancelar",
   "home.greeting": "Bem-vindo ao SeniorEase. Aqui tudo e mais simples e claro.",
   "home.hub.subtitle": "Escolha uma opcao para comecar.",
   "nav.title.home": "Inicio",
@@ -25,6 +26,7 @@ export const pt: MessageCatalog = {
   "home.personalization.increaseFontA11y": "Aumentar tamanho da fonte",
   "home.personalization.contrast": "Contraste: {level}",
   "home.personalization.contrastToggle": "Alternar contraste",
+  "home.personalization.resetDefaults": "Restaurar padroes",
   "home.contrast.standard": "Alto",
   "home.contrast.high": "Maximo",
   "home.language.title": "Idioma",
@@ -33,6 +35,11 @@ export const pt: MessageCatalog = {
   "feedback.fontSize": "Pronto! Tamanho da fonte atualizado.",
   "feedback.contrast": "Pronto! Contraste atualizado.",
   "feedback.language": "Pronto! Idioma atualizado.",
+  "feedback.resetDefaults": "Pronto! Preferencias restauradas para os padroes.",
+  "confirm.resetDefaults.title": "Restaurar padroes",
+  "confirm.resetDefaults.message":
+    "Isto vai restaurar a aparencia e as preferencias para os valores recomendados. Deseja continuar?",
+  "confirm.resetDefaults.confirm": "Restaurar",
   "tour.step.welcome.title": "Bem-vindo",
   "tour.step.welcome.description":
     "Este e um passo a passo rapido para voce conhecer a tela com calma.",

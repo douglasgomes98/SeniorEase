@@ -29,6 +29,7 @@ export interface HomeScreenLabels {
   increaseFontA11y: string;
   contrast: string;
   contrastToggle: string;
+  resetDefaults: string;
   languageTitle: string;
   languageToggle: string;
   restartTour: string;
@@ -39,6 +40,7 @@ export interface HomeScreenViewProps {
   onIncreaseFont: () => void;
   onDecreaseFont: () => void;
   onToggleContrast: () => void;
+  onResetDefaults: () => void;
   onToggleLanguage: () => void;
   onRestartTour: () => void;
   tour: HomeTourViewModel;
@@ -55,6 +57,7 @@ export function HomeScreenView(props: HomeScreenViewProps) {
     onIncreaseFont,
     onDecreaseFont,
     onToggleContrast,
+    onResetDefaults,
     onToggleLanguage,
     onRestartTour,
     tour,
@@ -129,6 +132,13 @@ export function HomeScreenView(props: HomeScreenViewProps) {
               testID="toggle-language"
             />
           </Stack>
+
+          <Button
+            label={labels.resetDefaults}
+            variant="danger"
+            onPress={onResetDefaults}
+            testID="reset-defaults"
+          />
         </View>
 
         <Button

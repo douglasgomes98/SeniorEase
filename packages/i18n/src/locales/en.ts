@@ -4,6 +4,7 @@ export const en: MessageCatalog = {
   "language.name.pt": "Portuguese",
   "language.name.en": "English",
   "language.name.es": "Spanish",
+  "common.cancel": "Cancel",
   "home.greeting": "Welcome to SeniorEase. Everything here is simpler and clearer.",
   "home.hub.subtitle": "Choose an option to get started.",
   "nav.title.home": "Home",
@@ -25,6 +26,7 @@ export const en: MessageCatalog = {
   "home.personalization.increaseFontA11y": "Increase text size",
   "home.personalization.contrast": "Contrast: {level}",
   "home.personalization.contrastToggle": "Toggle contrast",
+  "home.personalization.resetDefaults": "Restore defaults",
   "home.contrast.standard": "High",
   "home.contrast.high": "Maximum",
   "home.language.title": "Language",
@@ -33,6 +35,11 @@ export const en: MessageCatalog = {
   "feedback.fontSize": "Done! Text size updated.",
   "feedback.contrast": "Done! Contrast updated.",
   "feedback.language": "Done! Language updated.",
+  "feedback.resetDefaults": "Done! Preferences restored to defaults.",
+  "confirm.resetDefaults.title": "Restore defaults",
+  "confirm.resetDefaults.message":
+    "This will restore the appearance and preferences to the recommended values. Do you want to continue?",
+  "confirm.resetDefaults.confirm": "Restore",
   "tour.step.welcome.title": "Welcome",
   "tour.step.welcome.description":
     "This is a quick walkthrough so you can get to know the screen calmly.",
