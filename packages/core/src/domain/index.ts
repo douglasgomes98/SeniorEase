@@ -1,6 +1,7 @@
 export * from "./font-scale";
 export * from "./contrast-level";
 export * from "./navigation-mode";
+export * from "./app-route";
 export * from "./spacing-scale";
 export * from "./notification-preferences";
 export * from "./preferences";

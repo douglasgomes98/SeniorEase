@@ -1,4 +1,6 @@
 import {
+  createNavigationStorage,
+  createNavigationStore,
   createPreferencesStorage,
   createPreferencesStore,
   createTourStore,
@@ -31,5 +33,8 @@ export function createAppStores(storage: StoragePort): AppStores {
     onFinish: () => preferences.getState().setTourCompleted(true),
   });
 
-  return { preferences, tour };
+  const navigationStorage = createNavigationStorage(storage);
+  const navigation = createNavigationStore({ navigationStorage });
+
+  return { preferences, tour, navigation };
 }
