@@ -2,6 +2,7 @@ import {
   createActivitiesStorage,
   createActivitiesStore,
   createEnvelopeStorage,
+  createFeedbackStore,
   createNavigationStorage,
   createNavigationStore,
   createPreferencesStorage,
@@ -52,5 +53,7 @@ export function createAppStores(storage: StoragePort): AppStores {
   const navigationStorage = createNavigationStorage(storage);
   const navigation = createNavigationStore({ navigationStorage });
 
-  return { preferences, tour, navigation, activities };
+  const feedback = createFeedbackStore();
+
+  return { preferences, tour, navigation, activities, feedback };
 }

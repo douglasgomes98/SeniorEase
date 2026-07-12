@@ -8,6 +8,7 @@ import type { PreferencesState, PreferencesStore } from "./preferences-store";
 import type { TourState, TourStore } from "./tour-store";
 import type { NavigationState, NavigationStore } from "./navigation-store";
 import type { ActivitiesState, ActivitiesStore } from "./activities-store";
+import type { FeedbackState, FeedbackStore } from "./feedback-store";
 
 /**
  * Contexto de injecao das stores. Cada plataforma cria as stores no seu
@@ -19,6 +20,7 @@ export interface AppStores {
   tour: TourStore;
   navigation: NavigationStore;
   activities: ActivitiesStore;
+  feedback: FeedbackStore;
 }
 
 const StoresContext = createContext<AppStores | null>(null);
@@ -57,4 +59,8 @@ export function useNavigation<T>(selector: (state: NavigationState) => T): T {
 
 export function useActivities<T>(selector: (state: ActivitiesState) => T): T {
   return useStores().activities(selector);
+}
+
+export function useFeedback<T>(selector: (state: FeedbackState) => T): T {
+  return useStores().feedback(selector);
 }
