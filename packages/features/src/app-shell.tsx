@@ -8,6 +8,7 @@ import {
 } from "@senior-ease/core";
 import { I18nProvider } from "@senior-ease/i18n";
 import { ThemeProvider } from "@senior-ease/ui";
+import { FeedbackHost } from "./feedback";
 
 function Localized({ children }: { children: ReactNode }) {
   const hydrate = usePreferences((state) => state.hydrate);
@@ -32,6 +33,7 @@ function Localized({ children }: { children: ReactNode }) {
         spacingScale={spacingScale}
       >
         {children}
+        <FeedbackHost />
       </ThemeProvider>
     </I18nProvider>
   );

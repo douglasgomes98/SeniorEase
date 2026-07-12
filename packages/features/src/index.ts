@@ -6,5 +6,6 @@ export * from "./profile/ProfileScreen";
 export * from "./navigation/destinations";
 export * from "./navigation/screen-registry";
 export * from "./navigation/AppNavigator";
+export * from "./feedback";
 export * from "./create-app-stores";
 export * from "./app-shell";
