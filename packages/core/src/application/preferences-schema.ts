@@ -1,79 +1,116 @@
-import { z } from "zod";
-import { LOCALES } from "@senior-ease/i18n";
-import { CONTRAST_LEVELS } from "../domain/contrast-level";
-import { NAVIGATION_MODES } from "../domain/navigation-mode";
-import { FONT_SCALE_MAX, FONT_SCALE_MIN } from "../domain/font-scale";
-import { isSpacingScale, type SpacingScale } from "../domain/spacing-scale";
+import { isLocale } from "@senior-ease/i18n";
+import { isContrastLevel } from "../domain/contrast-level";
+import { isNavigationMode } from "../domain/navigation-mode";
+import { clampFontScale } from "../domain/font-scale";
+import { normalizeSpacingScale } from "../domain/spacing-scale";
 import {
+  DEFAULT_NOTIFICATION_PREFERENCES,
+  isNotificationChannel,
   isNotificationLeadTime,
-  NOTIFICATION_CHANNELS,
-  type NotificationLeadTime,
+  isQuietHoursTime,
+  type NotificationPreferences,
+  type QuietHours,
 } from "../domain/notification-preferences";
 import {
   DEFAULT_PREFERENCES,
-  DISPLAY_NAME_MAX_LENGTH,
+  normalizeDisplayName,
   type Preferences,
 } from "../domain/preferences";
 
 /**
- * Validacao de fronteira: todo dado vindo do armazenamento e tratado como nao
- * confiavel e validado antes de entrar no dominio. A versao do schema permite
- * evoluir o formato guardado com seguranca - uma migracao para frente preserva
- * os valores existentes e preenche os campos novos com padroes seguros.
+ * Validacao de fronteira das configuracoes. Todo dado vindo do armazenamento e
+ * tratado como nao confiavel. A degradacao e campo a campo: um campo invalido
+ * cai para o seu padrao seguro, sem descartar o registro inteiro - assim um
+ * unico campo corrompido nunca zera toda a configuracao. A versao do formato
+ * vive no envelope de persistencia, nao aqui.
  */
-export const PREFERENCES_SCHEMA_VERSION = 2;
 
-const spacingScaleSchema = z.custom<SpacingScale>((value) =>
-  isSpacingScale(value),
-);
+/** Forma persistida das configuracoes (identica a Preferences; sem versao). */
+export type PersistedSettings = Preferences;
 
-const leadTimeSchema = z.custom<NotificationLeadTime>((value) =>
-  isNotificationLeadTime(value),
-);
+function isPlainObject(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
 
-const quietHoursTimeSchema = z.string().regex(/^([01]\d|2[0-3]):[0-5]\d$/);
+function parseQuietHours(raw: unknown): QuietHours | null {
+  if (!isPlainObject(raw)) {
+    return null;
+  }
+  if (isQuietHoursTime(raw.start) && isQuietHoursTime(raw.end)) {
+    return { start: raw.start, end: raw.end };
+  }
+  return null;
+}
 
-const notificationsSchema = z.object({
-  enabled: z.boolean(),
-  leadTimeMinutes: leadTimeSchema,
-  channel: z.enum(NOTIFICATION_CHANNELS),
-  quietHours: z
-    .object({ start: quietHoursTimeSchema, end: quietHoursTimeSchema })
-    .nullable(),
-});
-
-/** Schema legado (v1) - reconhecido apenas para migrar dados existentes. */
-const preferencesV1Schema = z.object({
-  schemaVersion: z.literal(1),
-  locale: z.enum(LOCALES),
-  fontScale: z.number().min(FONT_SCALE_MIN).max(FONT_SCALE_MAX),
-  contrastLevel: z.enum(CONTRAST_LEVELS),
-  navigationMode: z.enum(NAVIGATION_MODES),
-  extraConfirmations: z.boolean(),
-  tourCompleted: z.boolean(),
-});
-
-/** Schema atual (v2). */
-export const persistedPreferencesSchema = z.object({
-  schemaVersion: z.literal(PREFERENCES_SCHEMA_VERSION),
-  locale: z.enum(LOCALES),
-  fontScale: z.number().min(FONT_SCALE_MIN).max(FONT_SCALE_MAX),
-  contrastLevel: z.enum(CONTRAST_LEVELS),
-  spacingScale: spacingScaleSchema,
-  navigationMode: z.enum(NAVIGATION_MODES),
-  reinforcedFeedback: z.boolean(),
-  extraConfirmations: z.boolean(),
-  tourCompleted: z.boolean(),
-  displayName: z.string().max(DISPLAY_NAME_MAX_LENGTH),
-  notifications: notificationsSchema,
-});
-
-export type PersistedPreferences = z.infer<typeof persistedPreferencesSchema>;
-type PersistedPreferencesV1 = z.infer<typeof preferencesV1Schema>;
-
-export function toPersisted(preferences: Preferences): PersistedPreferences {
+/**
+ * Coage o grupo de notificacoes campo a campo. Um grupo ausente ou invalido cai
+ * inteiro para os padroes; um subcampo invalido cai apenas ele.
+ */
+function parseNotifications(raw: unknown): NotificationPreferences {
+  if (!isPlainObject(raw)) {
+    return { ...DEFAULT_NOTIFICATION_PREFERENCES };
+  }
   return {
-    schemaVersion: PREFERENCES_SCHEMA_VERSION,
+    enabled:
+      typeof raw.enabled === "boolean"
+        ? raw.enabled
+        : DEFAULT_NOTIFICATION_PREFERENCES.enabled,
+    leadTimeMinutes: isNotificationLeadTime(raw.leadTimeMinutes)
+      ? raw.leadTimeMinutes
+      : DEFAULT_NOTIFICATION_PREFERENCES.leadTimeMinutes,
+    channel: isNotificationChannel(raw.channel)
+      ? raw.channel
+      : DEFAULT_NOTIFICATION_PREFERENCES.channel,
+    quietHours: parseQuietHours(raw.quietHours),
+  };
+}
+
+/**
+ * Converte um payload desconhecido (fatia "settings" do envelope) em Preferences
+ * validas, coagindo cada campo. Retorna null apenas quando a fatia nem sequer e
+ * um objeto - nesse caso quem chama aplica os padroes. Uma fatia-objeto sempre
+ * produz Preferences (no limite, tudo padrao), nunca null.
+ */
+export function parseSettings(raw: unknown): Preferences | null {
+  if (!isPlainObject(raw)) {
+    return null;
+  }
+  return {
+    locale: isLocale(raw.locale) ? raw.locale : DEFAULT_PREFERENCES.locale,
+    fontScale:
+      typeof raw.fontScale === "number"
+        ? clampFontScale(raw.fontScale)
+        : DEFAULT_PREFERENCES.fontScale,
+    contrastLevel: isContrastLevel(raw.contrastLevel)
+      ? raw.contrastLevel
+      : DEFAULT_PREFERENCES.contrastLevel,
+    spacingScale: normalizeSpacingScale(raw.spacingScale),
+    navigationMode: isNavigationMode(raw.navigationMode)
+      ? raw.navigationMode
+      : DEFAULT_PREFERENCES.navigationMode,
+    reinforcedFeedback:
+      typeof raw.reinforcedFeedback === "boolean"
+        ? raw.reinforcedFeedback
+        : DEFAULT_PREFERENCES.reinforcedFeedback,
+    extraConfirmations:
+      typeof raw.extraConfirmations === "boolean"
+        ? raw.extraConfirmations
+        : DEFAULT_PREFERENCES.extraConfirmations,
+    tourCompleted:
+      typeof raw.tourCompleted === "boolean"
+        ? raw.tourCompleted
+        : DEFAULT_PREFERENCES.tourCompleted,
+    displayName:
+      typeof raw.displayName === "string"
+        ? normalizeDisplayName(raw.displayName)
+        : DEFAULT_PREFERENCES.displayName,
+    notifications: parseNotifications(raw.notifications),
+  };
+}
+
+/** Projeta as configuracoes para a forma persistida (sem chaves extras). */
+export function toPersistedSettings(preferences: Preferences): PersistedSettings {
+  return {
     locale: preferences.locale,
     fontScale: preferences.fontScale,
     contrastLevel: preferences.contrastLevel,
@@ -83,52 +120,6 @@ export function toPersisted(preferences: Preferences): PersistedPreferences {
     extraConfirmations: preferences.extraConfirmations,
     tourCompleted: preferences.tourCompleted,
     displayName: preferences.displayName,
-    notifications: preferences.notifications,
+    notifications: { ...preferences.notifications },
   };
-}
-
-/**
- * Migracao forward v1 -> v2: mantem todos os valores validos do registro legado
- * e preenche os campos novos com os padroes seguros. O resultado e persistido no
- * formato v2 na proxima gravacao, atualizando instalacoes existentes no lugar.
- */
-function migrateV1toV2(v1: PersistedPreferencesV1): PersistedPreferences {
-  return {
-    schemaVersion: PREFERENCES_SCHEMA_VERSION,
-    locale: v1.locale,
-    fontScale: v1.fontScale,
-    contrastLevel: v1.contrastLevel,
-    navigationMode: v1.navigationMode,
-    extraConfirmations: v1.extraConfirmations,
-    tourCompleted: v1.tourCompleted,
-    spacingScale: DEFAULT_PREFERENCES.spacingScale,
-    reinforcedFeedback: DEFAULT_PREFERENCES.reinforcedFeedback,
-    displayName: DEFAULT_PREFERENCES.displayName,
-    notifications: { ...DEFAULT_PREFERENCES.notifications },
-  };
-}
-
-/**
- * Converte um payload desconhecido (JSON do storage) em Preferences validas.
- * Fluxo: valida contra o schema atual; se falhar, tenta o schema legado e migra;
- * caso contrario retorna null. Versoes acima da suportada e dados corrompidos
- * caem para null, permitindo usar os padroes sem quebrar a aplicacao (fail-safe).
- */
-export function parsePreferences(raw: unknown): Preferences | null {
-  const current = persistedPreferencesSchema.safeParse(raw);
-  if (current.success) {
-    return fromPersisted(current.data);
-  }
-
-  const legacy = preferencesV1Schema.safeParse(raw);
-  if (legacy.success) {
-    return fromPersisted(migrateV1toV2(legacy.data));
-  }
-
-  return null;
-}
-
-function fromPersisted(persisted: PersistedPreferences): Preferences {
-  const { schemaVersion: _schemaVersion, ...preferences } = persisted;
-  return { ...DEFAULT_PREFERENCES, ...preferences };
 }
