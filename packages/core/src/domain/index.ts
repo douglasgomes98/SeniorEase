@@ -8,3 +8,4 @@ export * from "./activity";
 export * from "./preferences";
 export * from "./tour-progress";
 export * from "./feedback";
+export * from "./confirmation";
