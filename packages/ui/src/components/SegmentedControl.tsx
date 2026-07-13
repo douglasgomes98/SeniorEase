@@ -25,8 +25,10 @@ export interface SegmentedControlProps<V extends string | number> {
 
 /**
  * Grupo de escolha unica acessivel. O contorno tem accessibilityRole="radiogroup"
- * e cada opcao "radio" + accessibilityState.selected, entao o leitor de tela
- * anuncia "uma de N" e a selecao. Opcoes de largura igual, alvo de toque >= 48dp
+ * e cada opcao "radio" + aria-checked (estado ARIA correto do radio), entao o
+ * leitor de tela anuncia "uma de N" e a selecao; a prop ARIA vira aria-checked
+ * no DOM (RNW) e accessibilityState no nativo (RN). Opcoes de largura igual,
+ * alvo de toque >= 48dp
  * e destaque da selecao por token (accent/accentInk vs surface/ink). Puro e
  * dirigido por props - sem regra de negocio nem i18n.
  */
@@ -56,7 +58,7 @@ export function SegmentedControl<V extends string | number>({
             testID={testID ? `${testID}-${option.value}` : undefined}
             accessibilityRole="radio"
             accessibilityLabel={option.label}
-            accessibilityState={{ selected, checked: selected }}
+            aria-checked={selected}
             style={({ pressed }) => ({
               flexGrow: 1,
               flexBasis: 0,

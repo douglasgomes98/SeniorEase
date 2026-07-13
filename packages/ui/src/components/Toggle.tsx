@@ -23,8 +23,9 @@ export interface ToggleProps {
 
 /**
  * Interruptor liga/desliga acessivel. Anuncia o estado a tecnologia assistiva
- * via accessibilityRole="switch" + accessibilityState.checked (nao um "botao"
- * generico). Alvo de toque >= 48dp, cores por token e anel de foco visivel do
+ * via accessibilityRole="switch" + aria-checked (nao um "botao" generico); a
+ * prop ARIA vira aria-checked no DOM (RNW) e accessibilityState no nativo (RN).
+ * Alvo de toque >= 48dp, cores por token e anel de foco visivel do
  * sistema (:focus-visible na Web, foco nativo). Puro e dirigido por props - sem
  * regra de negocio nem i18n.
  */
@@ -54,7 +55,7 @@ export function Toggle({
       testID={testID}
       accessibilityRole="switch"
       accessibilityLabel={resolvedA11yLabel}
-      accessibilityState={{ checked: value }}
+      aria-checked={value}
       style={({ pressed }) => [
         {
           flexDirection: "row",
