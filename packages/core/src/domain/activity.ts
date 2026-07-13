@@ -2,8 +2,8 @@
  * Entidade de dominio: atividade persistida.
  * Este modulo concentra apenas a forma persistida e suas invariantes (limites de
  * tamanho, estados validos, guardas). As operacoes de mutacao - criar, concluir,
- * excluir, reordenar - vivem na feature de lista de atividades, nunca aqui e
- * nunca na UI.
+ * excluir, ordenar - sao funcoes puras em `activity-operations.ts` (id e relogio
+ * injetados); o container as executa e persiste o resultado, nunca a UI.
  */
 export const ACTIVITY_TITLE_MAX_LENGTH = 80;
 export const ACTIVITY_DESCRIPTION_MAX_LENGTH = 280;

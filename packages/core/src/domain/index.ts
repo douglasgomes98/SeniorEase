@@ -5,6 +5,8 @@ export * from "./app-route";
 export * from "./spacing-scale";
 export * from "./notification-preferences";
 export * from "./activity";
+export * from "./activity-operations";
+export * from "./activity-id";
 export * from "./preferences";
 export * from "./tour-progress";
 export * from "./feedback";
