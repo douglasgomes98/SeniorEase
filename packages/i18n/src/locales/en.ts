@@ -147,6 +147,20 @@ export const en: MessageCatalog = {
   "reminders.permission.unavailable":
     "We could not schedule notifications on this device. Reminders still appear inside the app.",
   "reminders.notification.heading": "Reminder",
+  "nav.destination.history.label": "History",
+  "nav.destination.history.description": "See the activities you have completed.",
+  "history.header": "History",
+  "history.list.empty":
+    "You have not completed any activities yet. What you finish will appear here.",
+  "history.item.completedAt": "Completed on {date}",
+  "history.clear.label": "Clear history",
+  "history.notice.saveFailed":
+    "We could not save this on this device. The history stays here; please try again.",
+  "confirm.clearHistory.title": "Clear history",
+  "confirm.clearHistory.message":
+    "This will remove every completed activity from the history. Do you want to continue?",
+  "confirm.clearHistory.confirm": "Clear",
+  "feedback.historyCleared": "Done! History cleared.",
   "tour.step.welcome.title": "Welcome",
   "tour.step.welcome.description":
     "This is a quick walkthrough so you can get to know the screen calmly.",

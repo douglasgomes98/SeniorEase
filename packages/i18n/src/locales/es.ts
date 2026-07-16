@@ -147,6 +147,20 @@ export const es: MessageCatalog = {
   "reminders.permission.unavailable":
     "No pudimos programar notificaciones en este dispositivo. Los recordatorios siguen apareciendo dentro de la app.",
   "reminders.notification.heading": "Recordatorio",
+  "nav.destination.history.label": "Historial",
+  "nav.destination.history.description": "Mira las actividades que ya completaste.",
+  "history.header": "Historial",
+  "history.list.empty":
+    "Aun no has completado ninguna actividad. Aqui aparecera lo que termines.",
+  "history.item.completedAt": "Completada el {date}",
+  "history.clear.label": "Limpiar historial",
+  "history.notice.saveFailed":
+    "No pudimos guardar esto en este dispositivo. El historial sigue aqui; intentalo de nuevo.",
+  "confirm.clearHistory.title": "Limpiar historial",
+  "confirm.clearHistory.message":
+    "Esto eliminara todas las actividades completadas del historial. Deseas continuar?",
+  "confirm.clearHistory.confirm": "Limpiar",
+  "feedback.historyCleared": "Listo! Historial limpiado.",
   "tour.step.welcome.title": "Bienvenido",
   "tour.step.welcome.description":
     "Este es un recorrido rapido para que conozcas la pantalla con calma.",

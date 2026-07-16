@@ -147,6 +147,20 @@ export const pt: MessageCatalog = {
   "reminders.permission.unavailable":
     "Nao foi possivel agendar notificacoes neste aparelho. Os lembretes continuam aparecendo dentro do app.",
   "reminders.notification.heading": "Lembrete",
+  "nav.destination.history.label": "Historico",
+  "nav.destination.history.description": "Veja as atividades que voce ja concluiu.",
+  "history.header": "Historico",
+  "history.list.empty":
+    "Voce ainda nao concluiu nenhuma atividade. Aqui aparece o que voce ja fez.",
+  "history.item.completedAt": "Concluida em {date}",
+  "history.clear.label": "Limpar historico",
+  "history.notice.saveFailed":
+    "Nao foi possivel salvar neste aparelho. O historico segue aqui; tente de novo.",
+  "confirm.clearHistory.title": "Limpar historico",
+  "confirm.clearHistory.message":
+    "Isto vai apagar todas as atividades concluidas do historico. Deseja continuar?",
+  "confirm.clearHistory.confirm": "Limpar",
+  "feedback.historyCleared": "Pronto! Historico limpo.",
   "tour.step.welcome.title": "Bem-vindo",
   "tour.step.welcome.description":
     "Este e um passo a passo rapido para voce conhecer a tela com calma.",
