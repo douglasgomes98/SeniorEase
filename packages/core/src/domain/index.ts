@@ -4,6 +4,7 @@ export * from "./navigation-mode";
 export * from "./app-route";
 export * from "./spacing-scale";
 export * from "./notification-preferences";
+export * from "./reminder";
 export * from "./activity";
 export * from "./activity-operations";
 export * from "./activity-id";
