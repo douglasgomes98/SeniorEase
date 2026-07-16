@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import {
   isFontScaleAtMax,
   isFontScaleAtMin,
-  useConfirm,
   useFeedback,
   usePreferences,
   useTour,
@@ -10,11 +9,7 @@ import {
   type NavigationMode,
   type SpacingScale,
 } from "@senior-ease/core";
-import {
-  nextLocale,
-  useTranslation,
-  type MessageKey,
-} from "@senior-ease/i18n";
+import { useTranslation } from "@senior-ease/i18n";
 import {
   PersonalizationView,
   type PersonalizationViewProps,
@@ -25,13 +20,12 @@ import { tourStepContent } from "../home/tour-config";
  * Container do Painel de Personalizacao. Le as seis preferencias de
  * aparencia/interacao (F03) e os limites de fonte, aciona cada setter que
  * persiste e confirma a mudanca via feedback (F05). Resolve toda a copia por
- * i18n e a entrega, junto do tour (F08) e dos controles provisorios de
- * idioma/restauracao (F10), a view apresentacional. As regras vivem no core.
+ * i18n e a entrega, junto do tour (F08), a view apresentacional. As regras
+ * vivem no core.
  */
 export function PersonalizationScreen() {
   const t = useTranslation();
 
-  const locale = usePreferences((state) => state.locale);
   const fontScale = usePreferences((state) => state.fontScale);
   const contrastLevel = usePreferences((state) => state.contrastLevel);
   const spacingScale = usePreferences((state) => state.spacingScale);
@@ -52,10 +46,7 @@ export function PersonalizationScreen() {
   const setExtraConfirmations = usePreferences(
     (state) => state.setExtraConfirmations,
   );
-  const setLocale = usePreferences((state) => state.setLocale);
-  const resetToDefaults = usePreferences((state) => state.resetToDefaults);
   const announce = useFeedback((state) => state.announce);
-  const confirm = useConfirm();
 
   const steps = useTour((state) => state.steps);
   const progress = useTour((state) => state.progress);
@@ -84,10 +75,6 @@ export function PersonalizationScreen() {
   const content = currentStep ? tourStepContent(currentStep.id) : null;
   const isFirst = progress.currentIndex <= 0;
   const isLast = progress.currentIndex >= progress.totalSteps - 1;
-
-  const upcomingLocale = nextLocale(locale);
-  const upcomingLanguageKey: MessageKey = `language.name.${upcomingLocale}`;
-  const upcomingLanguageName = t(upcomingLanguageKey);
 
   // Fonte: sobe/desce em passos de 15% e confirma. Os limites desligam os botoes
   // na view (atMin/atMax), entao no piso/teto nada dispara.
@@ -130,27 +117,6 @@ export function PersonalizationScreen() {
     setExtraConfirmations(value);
     announce(t("feedback.extraConfirmations"));
   };
-  const handleToggleLanguage = () => {
-    setLocale(upcomingLocale);
-    announce(t("feedback.language"));
-  };
-  // Portao de confirmacao numa acao destrutiva provisoria (F10, a caminho do
-  // Perfil): confirmado -> reseta e confirma; cancelado -> nada muda. Com as
-  // confirmacoes extras desligadas, o portao resolve direto e a acao segue.
-  const handleResetDefaults = async () => {
-    const confirmed = await confirm({
-      title: t("confirm.resetDefaults.title"),
-      message: t("confirm.resetDefaults.message"),
-      confirmLabel: t("confirm.resetDefaults.confirm"),
-      cancelLabel: t("common.cancel"),
-      tone: "danger",
-    });
-    if (!confirmed) {
-      return;
-    }
-    resetToDefaults();
-    announce(t("feedback.resetDefaults"));
-  };
 
   const contrastOptions: { value: ContrastLevel; label: string }[] = [
     { value: "standard", label: t("home.contrast.standard") },
@@ -185,9 +151,6 @@ export function PersonalizationScreen() {
     on: t("common.on"),
     off: t("common.off"),
     restartTour: t("home.restartTour"),
-    languageTitle: t("home.language.title"),
-    languageToggle: t("home.language.toggle", { language: upcomingLanguageName }),
-    resetDefaults: t("home.personalization.resetDefaults"),
   };
 
   const values: PersonalizationViewProps["values"] = {
@@ -212,8 +175,6 @@ export function PersonalizationScreen() {
       onNavigationModeChange={handleNavigationModeChange}
       onReinforcedFeedbackChange={handleReinforcedFeedbackChange}
       onExtraConfirmationsChange={handleExtraConfirmationsChange}
-      onToggleLanguage={handleToggleLanguage}
-      onResetDefaults={handleResetDefaults}
       onRestartTour={beginTour}
       tour={{
         active: progress.isActive,

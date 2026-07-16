@@ -48,11 +48,8 @@ export interface PersonalizationLabels {
   extraConfirmations: string;
   on: string;
   off: string;
-  // Provisorios (F10) e F08, preservados nesta tela ate a relocacao.
+  // Afordancia do tour guiado (F08), preservada nesta tela.
   restartTour: string;
-  languageTitle: string;
-  languageToggle: string;
-  resetDefaults: string;
 }
 
 export interface PersonalizationViewValues {
@@ -77,17 +74,14 @@ export interface PersonalizationViewProps {
   onReinforcedFeedbackChange: (value: boolean) => void;
   onExtraConfirmationsChange: (value: boolean) => void;
   onRestartTour: () => void;
-  onToggleLanguage: () => void;
-  onResetDefaults: () => void;
   tour: PersonalizationTourViewModel;
 }
 
 /**
  * Painel de Personalizacao (tela cross unica Web + Mobile). 100% apresentacional:
  * recebe copia traduzida e callbacks por props; nenhuma regra de negocio nem
- * i18n aqui dentro. Reune os seis controles de aparencia/interacao, hospeda o
- * tour guiado (F08) e preserva os controles provisorios de idioma/restauracao
- * (F10) ate que o Perfil os assuma.
+ * i18n aqui dentro. Reune os seis controles de aparencia/interacao e hospeda o
+ * tour guiado (F08).
  */
 export function PersonalizationView(props: PersonalizationViewProps) {
   const {
@@ -101,8 +95,6 @@ export function PersonalizationView(props: PersonalizationViewProps) {
     onReinforcedFeedbackChange,
     onExtraConfirmationsChange,
     onRestartTour,
-    onToggleLanguage,
-    onResetDefaults,
     tour,
   } = props;
   const { colors, space, radii } = useTheme();
@@ -205,24 +197,6 @@ export function PersonalizationView(props: PersonalizationViewProps) {
             onLabel={labels.on}
             offLabel={labels.off}
             testID="toggle-extra-confirmations"
-          />
-
-          {/* Provisorios (F10): idioma + restaurar padroes */}
-          <Stack gap="sm">
-            <Text variant="body">{labels.languageTitle}</Text>
-            <Button
-              label={labels.languageToggle}
-              variant="secondary"
-              onPress={onToggleLanguage}
-              testID="toggle-language"
-            />
-          </Stack>
-
-          <Button
-            label={labels.resetDefaults}
-            variant="danger"
-            onPress={onResetDefaults}
-            testID="reset-defaults"
           />
         </View>
 
