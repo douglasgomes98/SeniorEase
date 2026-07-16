@@ -11,6 +11,7 @@ const TITLE_KEYS: Record<AppRoute, MessageKey> = {
   activities: "nav.destination.activities.label",
   personalization: "nav.destination.personalization.label",
   profile: "nav.destination.profile.label",
+  history: "nav.destination.history.label",
 };
 
 /**

@@ -9,6 +9,7 @@ export const APP_ROUTES = [
   "activities",
   "personalization",
   "profile",
+  "history",
 ] as const;
 
 export type AppRoute = (typeof APP_ROUTES)[number];

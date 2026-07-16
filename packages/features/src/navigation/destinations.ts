@@ -13,8 +13,9 @@ export interface DestinationCatalogEntry extends DestinationDescriptor {
 
 /**
  * Catalogo ordenado de destinos do hub. A ordem e a fonte unica que garante os
- * mesmos destinos, na mesma ordem, em Web e Mobile. Hoje todos sao primarios
- * (nao avancados), entao modo simples e padrao mostram os mesmos 3.
+ * mesmos destinos, na mesma ordem, em Web e Mobile. Os tres primeiros sao
+ * primarios; o Historico e avancado (visivel no modo padrao, escondido no modo
+ * simples, que fica com os tres essenciais).
  */
 export const DESTINATIONS: DestinationCatalogEntry[] = [
   {
@@ -34,6 +35,12 @@ export const DESTINATIONS: DestinationCatalogEntry[] = [
     advanced: false,
     labelKey: "nav.destination.profile.label",
     descriptionKey: "nav.destination.profile.description",
+  },
+  {
+    route: "history",
+    advanced: true,
+    labelKey: "nav.destination.history.label",
+    descriptionKey: "nav.destination.history.description",
   },
 ];
 

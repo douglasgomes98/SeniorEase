@@ -4,6 +4,7 @@ import { HomeScreen } from "../home/HomeScreen";
 import { ActivitiesScreen } from "../activities/ActivitiesScreen";
 import { PersonalizationScreen } from "../personalization/PersonalizationScreen";
 import { ProfileScreen } from "../profile/ProfileScreen";
+import { HistoryScreen } from "../history/HistoryScreen";
 
 export type ScreenRegistry = Record<AppRoute, ComponentType>;
 
@@ -16,4 +17,5 @@ export const screenRegistry: ScreenRegistry = {
   activities: ActivitiesScreen,
   personalization: PersonalizationScreen,
   profile: ProfileScreen,
+  history: HistoryScreen,
 };
