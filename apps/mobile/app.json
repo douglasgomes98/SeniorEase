@@ -1,0 +1,17 @@
+{
+  "expo": {
+    "name": "SeniorEase",
+    "slug": "senior-ease",
+    "scheme": "seniorease",
+    "version": "0.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "assetBundlePatterns": ["**/*"],
+    "android": {
+      "package": "br.com.fiap.seniorease",
+      "versionCode": 1
+    },
+    "plugins": ["expo-notifications"],
+    "newArchEnabled": true
+  }
+}
