@@ -7,3 +7,5 @@ export * from "./ActivityRow";
 export * from "./ActivitiesListView";
 export * from "./ActivityStepControls";
 export * from "./ActivityRunnerView";
+export * from "./HistoryRow";
+export * from "./HistoryView";
