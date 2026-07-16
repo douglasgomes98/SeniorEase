@@ -112,3 +112,29 @@ export function sortActivities(list: Activity[]): Activity[] {
     return (b.completedAt ?? 0) - (a.completedAt ?? 0);
   });
 }
+
+/** Retencao do historico: guarda os 200 registros concluidos mais recentes. */
+export const HISTORY_MAX = 200;
+
+/**
+ * Projecao de historico (leitura): somente atividades concluidas, ordenadas da
+ * conclusao mais recente para a mais antiga e limitadas ao teto de retencao.
+ * Deriva do proprio acervo de atividades - o historico nao e uma colecao a
+ * parte. Pura e sem mutar a entrada: `filter` ja cria um novo array, entao o
+ * `sort` seguinte nao toca na lista original.
+ */
+export function listHistory(list: Activity[], max: number = HISTORY_MAX): Activity[] {
+  return list
+    .filter((activity) => activity.status === "completed")
+    .sort((a, b) => (b.completedAt ?? 0) - (a.completedAt ?? 0))
+    .slice(0, max);
+}
+
+/**
+ * Limpa o historico: remove todas as atividades concluidas e preserva as
+ * pendentes na ordem original. O container persiste o resultado via a store
+ * (mesmo idioma de excluir/persistir do F09), mantendo esta funcao pura.
+ */
+export function clearCompletedActivities(list: Activity[]): Activity[] {
+  return list.filter((activity) => activity.status !== "completed");
+}

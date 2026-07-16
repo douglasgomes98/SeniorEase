@@ -9,10 +9,13 @@ import {
 } from "./activity";
 import {
   addActivity,
+  clearCompletedActivities,
   completeActivity,
   createActivity,
   deleteActivity,
+  HISTORY_MAX,
   isBlankTitle,
+  listHistory,
   sortActivities,
   type ActivityDraft,
 } from "./activity-operations";
@@ -33,6 +36,10 @@ function pending(id: string, overrides: Partial<Activity> = {}): Activity {
     completedAt: null,
     ...overrides,
   };
+}
+
+function completed(id: string, completedAt: number): Activity {
+  return { ...pending(id), status: "completed", completedAt };
 }
 
 describe("activity-operations", () => {
@@ -125,5 +132,57 @@ describe("activity-operations", () => {
     expect(isBlankTitle("")).toBe(true);
     expect(isBlankTitle("   ")).toBe(true);
     expect(isBlankTitle("ok")).toBe(false);
+  });
+
+  it("lists history completed-only, newest first", () => {
+    const list: Activity[] = [
+      pending("stillPending"),
+      completed("doneOld", 100),
+      completed("doneNew", 300),
+      completed("doneMid", 200),
+    ];
+
+    const history = listHistory(list).map((activity) => activity.id);
+    expect(history).toEqual(["doneNew", "doneMid", "doneOld"]);
+  });
+
+  it("does not mutate the input list when listing history", () => {
+    const list: Activity[] = [completed("a", 100), completed("b", 300)];
+    const snapshot = list.map((activity) => activity.id);
+    listHistory(list);
+    expect(list.map((activity) => activity.id)).toEqual(snapshot);
+  });
+
+  it("caps history at the 200 most recent", () => {
+    const list = Array.from({ length: HISTORY_MAX + 50 }, (_, index) =>
+      completed(`c${index}`, index),
+    );
+
+    const ids = listHistory(list).map((activity) => activity.id);
+    expect(ids).toHaveLength(HISTORY_MAX);
+    // Ordenados por conclusao decrescente: o mais recente e o de maior indice.
+    expect(ids[0]).toBe(`c${HISTORY_MAX + 49}`);
+    expect(ids[ids.length - 1]).toBe("c50");
+  });
+
+  it("returns an empty history when nothing is completed", () => {
+    expect(listHistory([pending("a"), pending("b")])).toEqual([]);
+  });
+
+  it("clears completed, keeping pending in their order", () => {
+    const list: Activity[] = [
+      pending("p1"),
+      completed("d1", 100),
+      pending("p2"),
+      completed("d2", 200),
+    ];
+
+    const cleared = clearCompletedActivities(list);
+    expect(cleared.map((activity) => activity.id)).toEqual(["p1", "p2"]);
+  });
+
+  it("clear is a no-op when nothing is completed", () => {
+    const list = [pending("p1"), pending("p2")];
+    expect(clearCompletedActivities(list).map((a) => a.id)).toEqual(["p1", "p2"]);
   });
 });
