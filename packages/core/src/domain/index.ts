@@ -9,5 +9,6 @@ export * from "./activity-operations";
 export * from "./activity-id";
 export * from "./preferences";
 export * from "./tour-progress";
+export * from "./step-progress";
 export * from "./feedback";
 export * from "./confirmation";
