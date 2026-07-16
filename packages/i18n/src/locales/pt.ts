@@ -109,10 +109,20 @@ export const pt: MessageCatalog = {
   "activities.item.status.pending": "Pendente",
   "activities.item.stepsCount": "{count} passos",
   "activities.item.due": "Vence em {date}",
+  "activities.item.start": "Iniciar",
+  "activities.item.startA11y": "Iniciar {title}",
   "activities.item.markDone": "Concluir",
   "activities.item.markDoneA11y": "Marcar {title} como concluida",
   "activities.item.delete": "Excluir",
   "activities.item.deleteA11y": "Excluir {title}",
+  "activities.runner.step": "Passo {current} de {total}",
+  "activities.runner.stepAnnounce": "Passo {current} de {total}: {text}",
+  "activities.runner.previous": "Anterior",
+  "activities.runner.next": "Proximo",
+  "activities.runner.finish": "Concluir",
+  "activities.runner.noSteps":
+    "Esta tarefa nao tem passos. Deseja marca-la como concluida?",
+  "activities.runner.close": "Fechar",
   "activities.notice.saveFailed":
     "Nao foi possivel salvar neste aparelho. A tarefa segue aqui; tente de novo.",
   "activities.notice.limitReached":

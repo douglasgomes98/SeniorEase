@@ -109,10 +109,20 @@ export const en: MessageCatalog = {
   "activities.item.status.pending": "Pending",
   "activities.item.stepsCount": "{count} steps",
   "activities.item.due": "Due {date}",
+  "activities.item.start": "Start",
+  "activities.item.startA11y": "Start {title}",
   "activities.item.markDone": "Mark done",
   "activities.item.markDoneA11y": "Mark {title} as done",
   "activities.item.delete": "Delete",
   "activities.item.deleteA11y": "Delete {title}",
+  "activities.runner.step": "Step {current} of {total}",
+  "activities.runner.stepAnnounce": "Step {current} of {total}: {text}",
+  "activities.runner.previous": "Previous",
+  "activities.runner.next": "Next",
+  "activities.runner.finish": "Finish",
+  "activities.runner.noSteps":
+    "This activity has no steps. Mark it complete?",
+  "activities.runner.close": "Close",
   "activities.notice.saveFailed":
     "We could not save this on this device. The task stays here; please try again.",
   "activities.notice.limitReached":
