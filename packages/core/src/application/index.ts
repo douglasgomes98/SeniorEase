@@ -1,6 +1,7 @@
 export * from "./ports/storage-port";
 export * from "./ports/preferences-storage-port";
 export * from "./ports/activities-storage-port";
+export * from "./ports/notification-scheduler-port";
 export * from "./preferences-schema";
 export * from "./activities-schema";
 export * from "./persistence-envelope-schema";

@@ -14,6 +14,7 @@ import type {
   ConfirmationState,
   ConfirmationStore,
 } from "./confirmation-store";
+import type { ReminderState, ReminderStore } from "./reminder-store";
 import { shouldConfirm, type ConfirmationRequest } from "../domain/confirmation";
 
 /**
@@ -28,6 +29,7 @@ export interface AppStores {
   activities: ActivitiesStore;
   feedback: FeedbackStore;
   confirmation: ConfirmationStore;
+  reminders: ReminderStore;
 }
 
 const StoresContext = createContext<AppStores | null>(null);
@@ -76,6 +78,10 @@ export function useConfirmation<T>(
   selector: (state: ConfirmationState) => T,
 ): T {
   return useStores().confirmation(selector);
+}
+
+export function useReminders<T>(selector: (state: ReminderState) => T): T {
+  return useStores().reminders(selector);
 }
 
 /**
