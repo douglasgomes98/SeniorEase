@@ -134,6 +134,19 @@ export const en: MessageCatalog = {
   "confirm.deleteActivity.message":
     "This will permanently delete the task \"{title}\". Do you want to continue?",
   "confirm.deleteActivity.confirm": "Delete",
+  "reminders.banner.title": "Your reminders",
+  "reminders.banner.upcoming": "Coming up: {count}",
+  "reminders.banner.overdue": "Overdue: {count}",
+  "reminders.banner.viewActivities": "View activities",
+  "reminders.badge.upcoming": "Coming up",
+  "reminders.badge.overdue": "Overdue",
+  "reminders.permission.rationale":
+    "To remind you at the right time, the app needs your permission to send notifications on this device.",
+  "reminders.permission.denied":
+    "Notifications are not allowed. Reminders still appear inside the app. To turn them on, allow the permission in your device settings.",
+  "reminders.permission.unavailable":
+    "We could not schedule notifications on this device. Reminders still appear inside the app.",
+  "reminders.notification.heading": "Reminder",
   "tour.step.welcome.title": "Welcome",
   "tour.step.welcome.description":
     "This is a quick walkthrough so you can get to know the screen calmly.",

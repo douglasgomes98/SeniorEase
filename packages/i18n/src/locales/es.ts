@@ -134,6 +134,19 @@ export const es: MessageCatalog = {
   "confirm.deleteActivity.message":
     "Esto eliminara la tarea \"{title}\" de forma permanente. Deseas continuar?",
   "confirm.deleteActivity.confirm": "Eliminar",
+  "reminders.banner.title": "Tus recordatorios",
+  "reminders.banner.upcoming": "Proximas: {count}",
+  "reminders.banner.overdue": "Atrasadas: {count}",
+  "reminders.banner.viewActivities": "Ver actividades",
+  "reminders.badge.upcoming": "Proxima",
+  "reminders.badge.overdue": "Atrasada",
+  "reminders.permission.rationale":
+    "Para avisarte a tiempo, la app necesita tu permiso para enviar notificaciones en este dispositivo.",
+  "reminders.permission.denied":
+    "Las notificaciones no estan permitidas. Los recordatorios siguen apareciendo dentro de la app. Para activarlas, permite el acceso en los ajustes del dispositivo.",
+  "reminders.permission.unavailable":
+    "No pudimos programar notificaciones en este dispositivo. Los recordatorios siguen apareciendo dentro de la app.",
+  "reminders.notification.heading": "Recordatorio",
   "tour.step.welcome.title": "Bienvenido",
   "tour.step.welcome.description":
     "Este es un recorrido rapido para que conozcas la pantalla con calma.",

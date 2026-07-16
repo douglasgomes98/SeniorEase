@@ -134,6 +134,19 @@ export const pt: MessageCatalog = {
   "confirm.deleteActivity.message":
     "Isto vai excluir a tarefa \"{title}\" de vez. Deseja continuar?",
   "confirm.deleteActivity.confirm": "Excluir",
+  "reminders.banner.title": "Seus lembretes",
+  "reminders.banner.upcoming": "Chegando: {count}",
+  "reminders.banner.overdue": "Atrasadas: {count}",
+  "reminders.banner.viewActivities": "Ver atividades",
+  "reminders.badge.upcoming": "Chegando",
+  "reminders.badge.overdue": "Atrasada",
+  "reminders.permission.rationale":
+    "Para avisar voce na hora certa, o app precisa da sua permissao para enviar notificacoes neste aparelho.",
+  "reminders.permission.denied":
+    "As notificacoes nao estao liberadas. Os lembretes continuam aparecendo dentro do app. Para ativa-las, libere a permissao nos ajustes do aparelho.",
+  "reminders.permission.unavailable":
+    "Nao foi possivel agendar notificacoes neste aparelho. Os lembretes continuam aparecendo dentro do app.",
+  "reminders.notification.heading": "Lembrete",
   "tour.step.welcome.title": "Bem-vindo",
   "tour.step.welcome.description":
     "Este e um passo a passo rapido para voce conhecer a tela com calma.",
