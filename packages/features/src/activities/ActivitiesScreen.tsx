@@ -26,6 +26,7 @@ import {
   type ActivityRowViewModel,
 } from "@senior-ease/ui";
 import { ActivityRunner } from "./ActivityRunner";
+import { useReminderSummary } from "../reminders";
 
 const EMPTY_DRAFT: ActivityDraft = {
   title: "",
@@ -68,6 +69,7 @@ export function ActivitiesScreen() {
   const locale = usePreferences((state) => state.locale);
   const announce = useFeedback((state) => state.announce);
   const confirm = useConfirm();
+  const { banner: reminderBanner, badgeFor } = useReminderSummary();
 
   const [expanded, setExpanded] = useState(false);
   const [draft, setDraft] = useState<ActivityDraft>(EMPTY_DRAFT);
@@ -160,6 +162,7 @@ export function ActivitiesScreen() {
       markDoneA11y: t("activities.item.markDoneA11y", { title: activity.title }),
       deleteLabel: t("activities.item.delete"),
       deleteA11y: t("activities.item.deleteA11y", { title: activity.title }),
+      reminderBadge: badgeFor(activity.id),
     };
   });
 
@@ -209,6 +212,7 @@ export function ActivitiesScreen() {
         rows={rows}
         emptyLabel={t("activities.list.empty")}
         addOpenLabel={t("activities.add.open")}
+        reminderBanner={reminderBanner}
         saveFailedNotice={
           persistenceError ? t("activities.notice.saveFailed") : undefined
         }

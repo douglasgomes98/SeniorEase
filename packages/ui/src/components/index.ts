@@ -1,5 +1,6 @@
 export * from "./Text";
 export * from "./Button";
+export * from "./Badge";
 export * from "./Icon";
 export * from "./Stack";
 export * from "./Screen";

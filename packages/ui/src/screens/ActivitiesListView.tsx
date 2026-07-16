@@ -5,6 +5,10 @@ import { Screen } from "../components/Screen";
 import { Stack } from "../components/Stack";
 import { Text } from "../components/Text";
 import {
+  ReminderBanner,
+  type ReminderBannerProps,
+} from "../feedback/ReminderBanner";
+import {
   ActivityForm,
   type ActivityDraft,
   type ActivityFormViewModel,
@@ -19,6 +23,8 @@ export interface ActivitiesListViewProps {
   emptyLabel: string;
   /** Rotulo do gatilho que abre o formulario. */
   addOpenLabel: string;
+  /** Banner de lembretes (F12) no topo; ausente/null quando nao ha o que avisar. */
+  reminderBanner?: ReminderBannerProps | null;
   /** Mostrado quando a persistencia falhou (persistenceError). */
   saveFailedNotice?: string;
   /** Mostrado quando o teto de atividades foi atingido. */
@@ -47,6 +53,7 @@ export function ActivitiesListView(props: ActivitiesListViewProps) {
     rows,
     emptyLabel,
     addOpenLabel,
+    reminderBanner,
     saveFailedNotice,
     limitNotice,
     form,
@@ -65,6 +72,10 @@ export function ActivitiesListView(props: ActivitiesListViewProps) {
       <Text variant="heading" accessibilityRole="header">
         {header}
       </Text>
+
+      {reminderBanner ? (
+        <ReminderBanner {...reminderBanner} testID="activities-reminder" />
+      ) : null}
 
       {saveFailedNotice ? (
         <View

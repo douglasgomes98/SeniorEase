@@ -2,6 +2,7 @@ import { usePreferences, useNavigation, visibleRoutes } from "@senior-ease/core"
 import { useTranslation } from "@senior-ease/i18n";
 import { HomeHubView, type HubDestination } from "@senior-ease/ui";
 import { DESTINATIONS, destinationLabelKey } from "../navigation/destinations";
+import { useReminderSummary } from "../reminders";
 
 /**
  * Container da Home como hub de destinos (compartilhado Web + Mobile). Liga o
@@ -15,6 +16,9 @@ export function HomeScreen() {
   const navigate = useNavigation((state) => state.navigate);
   const resume = useNavigation((state) => state.resume);
   const lastModule = useNavigation((state) => state.lastModule);
+  const { banner: reminder } = useReminderSummary({
+    onViewActivities: () => navigate("activities"),
+  });
 
   const visible = new Set(visibleRoutes(navigationMode, DESTINATIONS));
   const destinations: HubDestination[] = DESTINATIONS.filter((entry) =>
@@ -41,6 +45,7 @@ export function HomeScreen() {
       subtitle={t("home.hub.subtitle")}
       destinations={destinations}
       resume={resumeAffordance}
+      reminder={reminder}
     />
   );
 }

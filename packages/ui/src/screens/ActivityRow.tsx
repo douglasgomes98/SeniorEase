@@ -1,5 +1,6 @@
 import { View } from "react-native";
 import { useTheme } from "../theme/theme-context";
+import { Badge, type BadgeTone } from "../components/Badge";
 import { Button } from "../components/Button";
 import { Stack } from "../components/Stack";
 import { Text } from "../components/Text";
@@ -13,6 +14,8 @@ export interface ActivityRowViewModel {
   dueLabel?: string;
   /** Contagem de passos ja formatada; ausente quando nao ha passos. */
   stepsLabel?: string;
+  /** Etiqueta de lembrete (F12) chegando/atrasada; ausente quando nao se aplica. */
+  reminderBadge?: { label: string; tone: BadgeTone };
   /** Rotulo da acao Iniciar (abre a execucao guiada). */
   startLabel: string;
   /** Nome acessivel por item da acao Iniciar ("Iniciar {title}"). */
@@ -68,6 +71,13 @@ export function ActivityRow({
           <Text variant="caption" muted>
             {row.stepsLabel}
           </Text>
+        ) : null}
+        {row.reminderBadge ? (
+          <Badge
+            label={row.reminderBadge.label}
+            tone={row.reminderBadge.tone}
+            testID={`activity-badge-${row.id}`}
+          />
         ) : null}
       </Stack>
 
