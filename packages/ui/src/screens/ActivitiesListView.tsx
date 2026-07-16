@@ -28,6 +28,7 @@ export interface ActivitiesListViewProps {
   onCancelForm: () => void;
   onDraftChange: (next: ActivityDraft) => void;
   onSubmit: () => void;
+  onStart: (id: string) => void;
   onComplete: (id: string) => void;
   onDelete: (id: string) => void;
 }
@@ -53,6 +54,7 @@ export function ActivitiesListView(props: ActivitiesListViewProps) {
     onCancelForm,
     onDraftChange,
     onSubmit,
+    onStart,
     onComplete,
     onDelete,
   } = props;
@@ -109,6 +111,7 @@ export function ActivitiesListView(props: ActivitiesListViewProps) {
             <ActivityRow
               key={row.id}
               row={row}
+              onStart={onStart}
               onComplete={onComplete}
               onDelete={onDelete}
             />

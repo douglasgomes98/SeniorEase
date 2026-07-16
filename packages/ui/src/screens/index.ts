@@ -5,3 +5,5 @@ export * from "./ProfileView";
 export * from "./ActivityForm";
 export * from "./ActivityRow";
 export * from "./ActivitiesListView";
+export * from "./ActivityStepControls";
+export * from "./ActivityRunnerView";

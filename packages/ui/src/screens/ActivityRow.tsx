@@ -13,6 +13,10 @@ export interface ActivityRowViewModel {
   dueLabel?: string;
   /** Contagem de passos ja formatada; ausente quando nao ha passos. */
   stepsLabel?: string;
+  /** Rotulo da acao Iniciar (abre a execucao guiada). */
+  startLabel: string;
+  /** Nome acessivel por item da acao Iniciar ("Iniciar {title}"). */
+  startA11y: string;
   markDoneLabel: string;
   markDoneA11y: string;
   deleteLabel: string;
@@ -21,6 +25,8 @@ export interface ActivityRowViewModel {
 
 export interface ActivityRowProps {
   row: ActivityRowViewModel;
+  /** Abre o runner guiado da atividade. */
+  onStart: (id: string) => void;
   onComplete: (id: string) => void;
   onDelete: (id: string) => void;
 }
@@ -28,10 +34,16 @@ export interface ActivityRowProps {
 /**
  * Item da lista de atividades (apresentacional). Mostra o titulo como texto
  * puro com o status, o vencimento formatado (quando ha) e a contagem de passos,
- * mais as acoes Concluir e Excluir com nomes acessiveis por item e alvos de
- * toque generosos. Puro e dirigido por props - sem regra de negocio nem i18n.
+ * mais as acoes Iniciar (execucao guiada), Concluir e Excluir com nomes
+ * acessiveis por item e alvos de toque generosos. Puro e dirigido por props -
+ * sem regra de negocio nem i18n.
  */
-export function ActivityRow({ row, onComplete, onDelete }: ActivityRowProps) {
+export function ActivityRow({
+  row,
+  onStart,
+  onComplete,
+  onDelete,
+}: ActivityRowProps) {
   const { colors, space, radii } = useTheme();
 
   return (
@@ -60,6 +72,14 @@ export function ActivityRow({ row, onComplete, onDelete }: ActivityRowProps) {
       </Stack>
 
       {row.dueLabel ? <Text variant="body">{row.dueLabel}</Text> : null}
+
+      <Button
+        label={row.startLabel}
+        variant="primary"
+        onPress={() => onStart(row.id)}
+        accessibilityLabel={row.startA11y}
+        testID={`activity-start-${row.id}`}
+      />
 
       <Stack direction="row" gap="sm">
         <Button
