@@ -46,6 +46,17 @@ const CHANNEL_KEY: Record<NotificationChannel, MessageKey> = {
  * painel. Resolve toda a copia por i18n. As regras vivem no core.
  */
 export function ProfileScreen() {
+  const isHydrated = usePreferences((state) => state.isHydrated);
+  // O corpo semeia rascunhos locais (nome e horas silenciosas) a partir do estado
+  // persistido, entao so monta apos a hidratacao - evita semear com os padroes e
+  // depois divergir do valor carregado.
+  if (!isHydrated) {
+    return null;
+  }
+  return <ProfileContent />;
+}
+
+function ProfileContent() {
   const t = useTranslation();
 
   const displayName = usePreferences((state) => state.displayName);
