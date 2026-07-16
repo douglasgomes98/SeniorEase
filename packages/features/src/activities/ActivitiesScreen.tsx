@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { View } from "react-native";
 import {
   ACTIVITIES_MAX,
   ACTIVITY_DESCRIPTION_MAX_LENGTH,
@@ -24,6 +25,7 @@ import {
   type ActivityFormViewModel,
   type ActivityRowViewModel,
 } from "@senior-ease/ui";
+import { ActivityRunner } from "./ActivityRunner";
 
 const EMPTY_DRAFT: ActivityDraft = {
   title: "",
@@ -70,8 +72,12 @@ export function ActivitiesScreen() {
   const [expanded, setExpanded] = useState(false);
   const [draft, setDraft] = useState<ActivityDraft>(EMPTY_DRAFT);
   const [titleError, setTitleError] = useState<string | undefined>(undefined);
+  // Id efemero da atividade em execucao guiada; nao persistido.
+  const [runningId, setRunningId] = useState<string | null>(null);
 
   const openForm = () => setExpanded(true);
+
+  const start = (id: string) => setRunningId(id);
 
   const cancelForm = () => {
     setExpanded(false);
@@ -148,6 +154,8 @@ export function ActivitiesScreen() {
         activity.steps.length > 0
           ? t("activities.item.stepsCount", { count: activity.steps.length })
           : undefined,
+      startLabel: t("activities.item.start"),
+      startA11y: t("activities.item.startA11y", { title: activity.title }),
       markDoneLabel: t("activities.item.markDone"),
       markDoneA11y: t("activities.item.markDoneA11y", { title: activity.title }),
       deleteLabel: t("activities.item.delete"),
@@ -184,24 +192,42 @@ export function ActivitiesScreen() {
     },
   };
 
+  // So executa uma atividade ainda pendente; concluidas saem da lista pendente.
+  const running =
+    runningId !== null
+      ? activities.find(
+          (activity) =>
+            activity.id === runningId && activity.status === "pending",
+        )
+      : undefined;
+
   return (
-    <ActivitiesListView
-      header={t("activities.header")}
-      hydrated={isHydrated}
-      rows={rows}
-      emptyLabel={t("activities.list.empty")}
-      addOpenLabel={t("activities.add.open")}
-      saveFailedNotice={
-        persistenceError ? t("activities.notice.saveFailed") : undefined
-      }
-      limitNotice={atLimit ? t("activities.notice.limitReached") : undefined}
-      form={form}
-      onOpenForm={openForm}
-      onCancelForm={cancelForm}
-      onDraftChange={changeDraft}
-      onSubmit={submit}
-      onComplete={complete}
-      onDelete={remove}
-    />
+    <View style={{ flex: 1 }}>
+      <ActivitiesListView
+        header={t("activities.header")}
+        hydrated={isHydrated}
+        rows={rows}
+        emptyLabel={t("activities.list.empty")}
+        addOpenLabel={t("activities.add.open")}
+        saveFailedNotice={
+          persistenceError ? t("activities.notice.saveFailed") : undefined
+        }
+        limitNotice={atLimit ? t("activities.notice.limitReached") : undefined}
+        form={form}
+        onOpenForm={openForm}
+        onCancelForm={cancelForm}
+        onDraftChange={changeDraft}
+        onSubmit={submit}
+        onStart={start}
+        onComplete={complete}
+        onDelete={remove}
+      />
+      {running ? (
+        <ActivityRunner
+          activity={running}
+          onClose={() => setRunningId(null)}
+        />
+      ) : null}
+    </View>
   );
 }
