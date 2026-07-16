@@ -8,24 +8,30 @@ import {
   createNavigationStore,
   createPreferencesStorage,
   createPreferencesStore,
+  createReminderStore,
   createTourStore,
   LoadActivities,
   LoadPreferences,
   SaveActivities,
   SavePreferences,
   type AppStores,
+  type NotificationSchedulerPort,
   type StoragePort,
 } from "@senior-ease/core";
 import { HOME_TOUR_STEPS } from "./home/tour-config";
 
 /**
  * Composition root de dominio (independente de plataforma): monta os casos de
- * uso e as stores. A unica variacao por plataforma e o adaptador de
- * armazenamento bruto, injetado aqui. Sobre ele, o repositorio de envelope (com
- * serializacao e validacao versionada) e montado no core, e as fachadas tipadas
- * derivam dele - honrando a Inversao de Dependencia.
+ * uso e as stores. As variacoes por plataforma sao os adaptadores injetados
+ * aqui: o armazenamento bruto e o agendador de notificacoes. Sobre o storage, o
+ * repositorio de envelope (com serializacao e validacao versionada) e montado no
+ * core, e as fachadas tipadas derivam dele; sobre o agendador, a store de
+ * lembretes reconcilia o agendamento - honrando a Inversao de Dependencia.
  */
-export function createAppStores(storage: StoragePort): AppStores {
+export function createAppStores(
+  storage: StoragePort,
+  notifications: NotificationSchedulerPort,
+): AppStores {
   const envelope = createEnvelopeStorage(storage);
 
   const preferencesStorage = createPreferencesStorage(envelope);
@@ -58,5 +64,15 @@ export function createAppStores(storage: StoragePort): AppStores {
 
   const confirmation = createConfirmationStore();
 
-  return { preferences, tour, navigation, activities, feedback, confirmation };
+  const reminders = createReminderStore({ scheduler: notifications });
+
+  return {
+    preferences,
+    tour,
+    navigation,
+    activities,
+    feedback,
+    confirmation,
+    reminders,
+  };
 }
