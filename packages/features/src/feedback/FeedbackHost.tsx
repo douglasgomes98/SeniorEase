@@ -9,7 +9,7 @@ import { triggerHaptic } from "./trigger-haptic";
 
 /**
  * Host global do feedback: montado uma vez no shell, acima de todas as telas.
- * Le a mensagem atual e a preferencia de feedback reforcado (F03), resolve a
+ * Le a mensagem atual e a preferencia de feedback reforcado, resolve a
  * duracao (3 s / 5 s) e dispara o auto-dismiss no tempo certo; no modo reforcado
  * dispara tambem o haptico de sucesso (Android). Renderiza o unico banner e nao
  * devolve nada quando nao ha mensagem, sem interceptar toques enquanto ocioso.

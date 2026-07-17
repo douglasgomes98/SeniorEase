@@ -30,9 +30,9 @@ export interface ReminderBannerProps {
 }
 
 /**
- * Banner gentil de lembretes (F12), reusado na Home e nas Atividades. E uma live
+ * Banner gentil de lembretes, reusado na Home e nas Atividades. E uma live
  * region "polite" com role "status", entao a tecnologia assistiva o anuncia ao
- * abrir o app. Cores apenas dos papeis do design system (F01) - nunca hex. A
+ * abrir o app. Cores apenas dos papeis do design system - nunca hex. A
  * entrada faz um fade suave, suprimido sob reducao de movimento (mesmo padrao do
  * FeedbackBanner). Puro e dirigido por props: toda a copia chega traduzida, sem
  * regra de negocio nem i18n aqui dentro.

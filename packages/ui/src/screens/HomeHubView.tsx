@@ -28,7 +28,7 @@ export interface HomeHubViewProps {
   destinations: HubDestination[];
   /** Afordancia "continuar de onde parou"; ausente quando nao ha o que retomar. */
   resume: HubResume | null;
-  /** Banner de lembretes (F12); ausente/null quando nao ha nada a avisar. */
+  /** Banner de lembretes; ausente/null quando nao ha nada a avisar. */
   reminder?: ReminderBannerProps | null;
   testID?: string;
 }

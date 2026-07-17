@@ -12,7 +12,7 @@ import {
  * excluir, adicionar respeitando o teto e ordenar. Sao puras: recebem o id e o
  * relogio (`now`) por argumento, entao nunca leem estado global e sao
  * totalmente testaveis no Vitest, como os value objects. A UI nunca as executa
- * diretamente - o container as chama e persiste o resultado via a store (F03).
+ * diretamente - o container as chama e persiste o resultado via a store.
  */
 
 /** Entrada de criacao vinda do formulario, antes de virar Activity. */
@@ -133,7 +133,7 @@ export function listHistory(list: Activity[], max: number = HISTORY_MAX): Activi
 /**
  * Limpa o historico: remove todas as atividades concluidas e preserva as
  * pendentes na ordem original. O container persiste o resultado via a store
- * (mesmo idioma de excluir/persistir do F09), mantendo esta funcao pura.
+ * (mesmo idioma de excluir/persistir da lista), mantendo esta funcao pura.
  */
 export function clearCompletedActivities(list: Activity[]): Activity[] {
   return list.filter((activity) => activity.status !== "completed");

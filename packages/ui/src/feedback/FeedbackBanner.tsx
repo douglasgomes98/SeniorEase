@@ -26,10 +26,10 @@ export interface FeedbackBannerProps {
 const REINFORCING_GLYPH = "✓";
 
 /**
- * Surface de confirmacao (F05): um unico lugar consistente (rodape, centro),
+ * Surface de confirmacao: um unico lugar consistente (rodape, centro),
  * marcada como live region "polite" com role "status" para a tecnologia
  * assistiva anunciar a mensagem assim que o texto muda. As cores vem apenas dos
- * papeis do design system (F01) - nunca hex - entao AA/AAA valem nas duas
+ * papeis do design system - nunca hex - entao AA/AAA valem nas duas
  * paletas. No modo reforcado a mensagem fica maior, ganha um glifo e usa a cor
  * solida do papel. A entrada faz um fade suave, suprimido sob reducao de
  * movimento (mesmo padrao do TourOverlay). Componente puro, dirigido por props.

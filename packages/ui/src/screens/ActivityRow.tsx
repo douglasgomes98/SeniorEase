@@ -14,7 +14,7 @@ export interface ActivityRowViewModel {
   dueLabel?: string;
   /** Contagem de passos ja formatada; ausente quando nao ha passos. */
   stepsLabel?: string;
-  /** Etiqueta de lembrete (F12) chegando/atrasada; ausente quando nao se aplica. */
+  /** Etiqueta de lembrete chegando/atrasada; ausente quando nao se aplica. */
   reminderBadge?: { label: string; tone: BadgeTone };
   /** Rotulo da acao Iniciar (abre a execucao guiada). */
   startLabel: string;

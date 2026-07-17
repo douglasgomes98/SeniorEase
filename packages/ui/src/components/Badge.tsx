@@ -19,7 +19,7 @@ export interface BadgeProps {
 
 /**
  * Etiqueta compacta (pilula) para status como "chegando"/"atrasada". Cores vem
- * apenas dos papeis do design system (F01), nunca hex, entao o contraste AA/AAA
+ * apenas dos papeis do design system, nunca hex, entao o contraste AA/AAA
  * vale nas duas paletas. Puro e dirigido por props - sem regra de negocio nem
  * i18n aqui dentro.
  */

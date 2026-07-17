@@ -48,7 +48,7 @@ export interface PersonalizationLabels {
   extraConfirmations: string;
   on: string;
   off: string;
-  // Afordancia do tour guiado (F08), preservada nesta tela.
+  // Afordancia do tour guiado, preservada nesta tela.
   restartTour: string;
 }
 
@@ -81,7 +81,7 @@ export interface PersonalizationViewProps {
  * Painel de Personalizacao (tela cross unica Web + Mobile). 100% apresentacional:
  * recebe copia traduzida e callbacks por props; nenhuma regra de negocio nem
  * i18n aqui dentro. Reune os seis controles de aparencia/interacao e hospeda o
- * tour guiado (F08).
+ * tour guiado.
  */
 export function PersonalizationView(props: PersonalizationViewProps) {
   const {

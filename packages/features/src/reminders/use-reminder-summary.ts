@@ -25,8 +25,8 @@ export interface ReminderSummaryOptions {
 }
 
 /**
- * Seletor de aviso dentro do app (F12). Le a lista (F09), as preferencias de
- * notificacao (F03) e o estado efemero de permissao/disponibilidade da store,
+ * Seletor de aviso dentro do app. Le a lista, as preferencias de
+ * notificacao e o estado efemero de permissao/disponibilidade da store,
  * calcula os baldes puros de chegando/atrasado e aplica a regra de canal +
  * permissao (com atraso sempre visivel e degradacao para o app quando o sistema
  * esta indisponivel). Deriva o banner (contagens, tom e o aviso de permissao

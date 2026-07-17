@@ -23,7 +23,7 @@ export interface ActivitiesListViewProps {
   emptyLabel: string;
   /** Rotulo do gatilho que abre o formulario. */
   addOpenLabel: string;
-  /** Banner de lembretes (F12) no topo; ausente/null quando nao ha o que avisar. */
+  /** Banner de lembretes no topo; ausente/null quando nao ha o que avisar. */
   reminderBanner?: ReminderBannerProps | null;
   /** Mostrado quando a persistencia falhou (persistenceError). */
   saveFailedNotice?: string;

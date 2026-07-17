@@ -18,9 +18,9 @@ import { tourStepContent } from "../home/tour-config";
 
 /**
  * Container do Painel de Personalizacao. Le as seis preferencias de
- * aparencia/interacao (F03) e os limites de fonte, aciona cada setter que
- * persiste e confirma a mudanca via feedback (F05). Resolve toda a copia por
- * i18n e a entrega, junto do tour (F08), a view apresentacional. As regras
+ * aparencia/interacao e os limites de fonte, aciona cada setter que
+ * persiste e confirma a mudanca via feedback. Resolve toda a copia por
+ * i18n e a entrega, junto do tour, a view apresentacional. As regras
  * vivem no core.
  */
 export function PersonalizationScreen() {

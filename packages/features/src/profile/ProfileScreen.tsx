@@ -37,12 +37,12 @@ const CHANNEL_KEY: Record<NotificationChannel, MessageKey> = {
 };
 
 /**
- * Container do Perfil. Le tudo o que o app lembra do usuario (F03) - nome,
+ * Container do Perfil. Le tudo o que o app lembra do usuario - nome,
  * idioma, preferencias de lembretes e os valores de aparencia - alem do
  * sinalizador de falha de persistencia. Mantem rascunhos locais do nome e das
  * horas silenciosas para validar antes de persistir; em cada mudanca chama o
- * setter que persiste e confirma via feedback (F05). O reset passa pelo portao
- * de confirmacao (F06, tom danger) e o atalho de aparencia navega (F04) ao
+ * setter que persiste e confirma via feedback. O reset passa pelo portao
+ * de confirmacao (tom danger) e o atalho de aparencia navega ao
  * painel. Resolve toda a copia por i18n. As regras vivem no core.
  */
 export function ProfileScreen() {
@@ -164,7 +164,7 @@ function ProfileContent() {
     }
   };
 
-  // Portao de confirmacao numa acao destrutiva (F06, tom danger): confirmado ->
+  // Portao de confirmacao numa acao destrutiva (tom danger): confirmado ->
   // reseta, ressincroniza os rascunhos e confirma; cancelado -> nada muda. Com
   // as confirmacoes extras desligadas, o portao resolve direto e a acao segue.
   const handleReset = async () => {

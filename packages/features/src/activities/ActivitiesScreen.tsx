@@ -51,11 +51,11 @@ function formatDue(due: string, locale: string): string {
 
 /**
  * Container das Atividades. Le a lista, a hidratacao e o sinalizador de falha de
- * persistencia da store (F03); mantem o estado local do formulario. Ao salvar,
+ * persistencia da store; mantem o estado local do formulario. Ao salvar,
  * valida o titulo (senao mostra erro inline), constroi a atividade com as
  * operacoes puras do dominio, persiste a lista re-ordenada via replaceActivities
- * e confirma via feedback (F05); ao concluir, persiste e anuncia feedback
- * positivo; ao excluir, passa pelo portao de confirmacao (F06) e so entao
+ * e confirma via feedback; ao concluir, persiste e anuncia feedback
+ * positivo; ao excluir, passa pelo portao de confirmacao e so entao
  * persiste e anuncia. Deriva a lista pendente, formata o vencimento no idioma e
  * resolve toda a copia por i18n antes de entregar a view. As regras vivem no core.
  */

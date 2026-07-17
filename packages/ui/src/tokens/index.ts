@@ -95,7 +95,7 @@ export interface Palette {
   dangerInk: string;
   dangerSoft: string;
   focus: string;
-  /** Scrim do tour (extensao do F01 sobre o conjunto entregue). */
+  /** Scrim do tour (extensao do design system sobre o conjunto entregue). */
   overlay: string;
 }
 
@@ -146,7 +146,7 @@ export const palettes: Record<PaletteKey, Palette> = {
 };
 
 /**
- * Valor de contraste do DOMINIO (persistido no F03 e rotulado no i18n). O
+ * Valor de contraste do DOMINIO (persistido nas preferencias e rotulado no i18n). O
  * mapeamento high -> paleta "maximum" acontece dentro de makeTheme; nao ha
  * renomeacao no dominio nem migracao de dados.
  */

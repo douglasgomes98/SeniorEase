@@ -30,9 +30,9 @@ export interface ActivityRunnerProps {
  * Container da execucao guiada. Recebe a atividade em execucao e um callback de
  * fechamento; mantem o cursor de passos em estado local (efemero) e o move pelas
  * funcoes puras do dominio (step-progress). Anuncia cada passo ao leitor de tela
- * (F05) e, ao concluir - no ultimo passo ou no painel sem passos -, reusa a
- * operacao pura completeActivity (F09), persiste a lista reordenada via
- * replaceActivities (F03), anuncia o feedback positivo e fecha. Resolve toda a
+ * e, ao concluir - no ultimo passo ou no painel sem passos -, reusa a
+ * operacao pura completeActivity, persiste a lista reordenada via
+ * replaceActivities, anuncia o feedback positivo e fecha. Resolve toda a
  * copia por i18n e entrega strings prontas a view. As regras vivem no core.
  */
 export function ActivityRunner({ activity, onClose }: ActivityRunnerProps) {

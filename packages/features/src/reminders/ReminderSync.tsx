@@ -10,8 +10,8 @@ import { useTranslation } from "@senior-ease/i18n";
 /**
  * Orquestrador headless de agendamento, montado no shell compartilhado para
  * rodar independente da rota ativa. Semeia a permissao no start, reconcilia o
- * agendamento sempre que a lista de atividades (F09) ou as preferencias de
- * notificacao (F03) mudam, e dispara o pedido de permissao - uma unica vez, em
+ * agendamento sempre que a lista de atividades ou as preferencias de
+ * notificacao mudam, e dispara o pedido de permissao - uma unica vez, em
  * linguagem clara - no momento em que o usuario liga a entrega pelo sistema.
  * Nao renderiza nada; toda a decisao pura vive no dominio e na store.
  */

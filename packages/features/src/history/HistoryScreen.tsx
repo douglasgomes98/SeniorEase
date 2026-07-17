@@ -22,12 +22,12 @@ function formatCompletedAt(completedAt: number, locale: string): string {
 
 /**
  * Container do Historico. Le a lista, a hidratacao e o sinalizador de falha de
- * persistencia da store (F03 + F09) e o idioma das preferencias. Deriva as
+ * persistencia da store e o idioma das preferencias. Deriva as
  * concluidas via a projecao pura listHistory (mais recente primeiro, teto de
  * retencao), formata cada conclusao no idioma e monta os view-models. Ao limpar,
- * passa pelo portao de confirmacao (F06, tom danger) e so entao persiste a lista
- * sem as concluidas via replaceActivities (mesmo idioma de excluir/persistir do
- * F09) e anuncia via feedback (F05). Expoe o Limpar so quando ha historico e
+ * passa pelo portao de confirmacao (tom danger) e so entao persiste a lista
+ * sem as concluidas via replaceActivities (mesmo idioma de excluir/persistir da
+ * lista) e anuncia via feedback. Expoe o Limpar so quando ha historico e
  * resolve toda a copia por i18n. As regras vivem no core.
  */
 export function HistoryScreen() {
