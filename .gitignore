@@ -1,0 +1,49 @@
+# Dependencias
+node_modules/
+.pnpm-store/
+
+# Variaveis de ambiente (segredos nunca versionados - OWASP A02/A05)
+.env
+.env.*
+!.env.example
+
+# Ferramentas locais de desenvolvimento - nunca versionar em nenhuma hipotese
+.claude/
+.agents/
+.playwright-cli/
+requisitos/
+skills-lock.json
+
+# Documentacao interna e markdown - bloqueado em nenhuma hipotese, exceto o README canonico
+docs/
+*.md
+**/*.md
+!/README.md
+
+# Build e cache
+.turbo/
+dist/
+build/
+coverage/
+*.tsbuildinfo
+
+# Web (Next.js / Vercel)
+apps/web/.next/
+apps/web/out/
+.vercel/
+next-env.d.ts
+
+# Mobile (Expo / React Native)
+.expo/
+apps/mobile/.expo/
+apps/mobile/android/
+apps/mobile/ios/
+*.apk
+*.aab
+*.keystore
+
+# Sistema operacional / editor
+.DS_Store
+*.log
+npm-debug.log*
+yarn-error.log*

@@ -1,0 +1,29 @@
+{
+  "name": "senior-ease",
+  "version": "0.0.0",
+  "private": true,
+  "description": "SeniorEase - plataforma de acessibilidade para idosos (Web + Mobile)",
+  "packageManager": "pnpm@9.7.0",
+  "engines": {
+    "node": ">=18.18.0"
+  },
+  "scripts": {
+    "build": "turbo run build",
+    "typecheck": "turbo run typecheck",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "web:dev": "turbo run dev --filter=@senior-ease/web",
+    "web:build": "turbo run build --filter=@senior-ease/web",
+    "mobile:start": "turbo run start --filter=@senior-ease/mobile",
+    "mobile:prebuild": "pnpm --filter @senior-ease/mobile prebuild",
+    "apk": "bash scripts/build-apk.sh",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "19.4.0",
+    "@commitlint/config-conventional": "19.2.2",
+    "husky": "9.1.4",
+    "turbo": "2.0.12",
+    "typescript": "5.4.5"
+  }
+}
