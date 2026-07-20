@@ -11,7 +11,8 @@
   "scripts": {
     "build": "tsc --noEmit",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint \"src/**/*.{ts,tsx}\""
+    "lint": "eslint \"src/**/*.{ts,tsx}\"",
+    "test": "vitest run"
   },
   "dependencies": {
     "@senior-ease/core": "workspace:*",
@@ -29,6 +30,7 @@
     "@typescript-eslint/parser": "7.18.0",
     "eslint": "8.57.0",
     "eslint-plugin-react": "7.35.0",
-    "typescript": "5.4.5"
+    "typescript": "5.4.5",
+    "vitest": "3.2.7"
   }
 }
