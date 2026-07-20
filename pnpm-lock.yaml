@@ -199,9 +199,6 @@ importers:
       '@senior-ease/ui':
         specifier: workspace:*
         version: link:../ui
-      react:
-        specifier: '*'
-        version: 18.3.1
       react-native:
         specifier: '*'
         version: 0.76.5(@babel/core@7.29.7)(@babel/preset-env@7.29.7(@babel/core@7.29.7))(@types/react@18.3.12)(react@18.3.1)
@@ -209,9 +206,15 @@ importers:
       '@senior-ease/config':
         specifier: workspace:*
         version: link:../config
+      '@testing-library/react':
+        specifier: 16.3.2
+        version: 16.3.2(@testing-library/dom@10.4.1)(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@types/react':
         specifier: 18.3.12
         version: 18.3.12
+      '@types/react-dom':
+        specifier: 18.3.1
+        version: 18.3.1
       '@typescript-eslint/eslint-plugin':
         specifier: 7.18.0
         version: 7.18.0(@typescript-eslint/parser@7.18.0(eslint@8.57.0)(typescript@5.4.5))(eslint@8.57.0)(typescript@5.4.5)
@@ -224,6 +227,18 @@ importers:
       eslint-plugin-react:
         specifier: 7.35.0
         version: 7.35.0(eslint@8.57.0)
+      jsdom:
+        specifier: 26.1.0
+        version: 26.1.0
+      react:
+        specifier: 18.3.1
+        version: 18.3.1
+      react-dom:
+        specifier: 18.3.1
+        version: 18.3.1(react@18.3.1)
+      react-native-web:
+        specifier: 0.19.13
+        version: 0.19.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       typescript:
         specifier: 5.4.5
         version: 5.4.5

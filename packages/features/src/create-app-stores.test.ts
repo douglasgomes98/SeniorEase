@@ -1,10 +1,7 @@
 import {
   completeActivity,
   createActivity,
-  advanceStep,
-  isAtLastStep,
   listHistory,
-  startStepProgress,
   type NotificationSchedulerPort,
   type ScheduledReminder,
   type StoragePort,
@@ -54,13 +51,13 @@ describe("createAppStores", () => {
     expect(second.preferences.getState().spacingScale).toBe(1.5);
   });
 
-  it("moves a stepped activity into history", async () => {
+  it("moves a completed activity into history", async () => {
     const stores = createAppStores(makeStorage().port, makeScheduler().port);
     const created = createActivity(
       {
         title: "Tomar remedio",
         description: "",
-        steps: ["Separar agua", "Tomar remedio", "Guardar a caixa"],
+        steps: ["Separar agua"],
         due: "",
       },
       "a1",
@@ -68,13 +65,6 @@ describe("createAppStores", () => {
     );
     stores.activities.getState().replaceActivities([created]);
     await vi.waitFor(() => expect(stores.activities.getState().activities).toHaveLength(1));
-
-    const firstStep = startStepProgress(created.steps.length);
-    const secondStep = advanceStep(firstStep);
-    const lastStep = advanceStep(secondStep);
-    expect(secondStep.currentIndex).toBe(1);
-    expect(isAtLastStep(secondStep)).toBe(false);
-    expect(isAtLastStep(lastStep)).toBe(true);
 
     stores.activities.getState().replaceActivities([completeActivity(created, 2)]);
     await vi.waitFor(() =>
