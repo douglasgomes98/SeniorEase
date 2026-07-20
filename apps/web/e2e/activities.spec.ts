@@ -28,3 +28,28 @@ test("executa os passos e conclui atividade", async ({ page }) => {
   await page.getByTestId("activity-runner-next").click();
   await expect(page.getByText("Enviar documento", { exact: true })).toHaveCount(0);
 });
+
+test("cancela e depois confirma a exclusao de uma atividade", async ({ page }) => {
+  await openDestination(page, "activities");
+  await createActivity(page, "Comprar remedio");
+  await page.getByRole("button", { name: "Excluir Comprar remedio" }).click();
+  await page.getByTestId("confirm-dialog-cancel").click();
+  await expect(page.getByText("Comprar remedio", { exact: true })).toBeVisible();
+  await page.getByRole("button", { name: "Excluir Comprar remedio" }).click();
+  await page.getByTestId("confirm-dialog-confirm").click();
+  await expect(page.getByText("Comprar remedio", { exact: true })).toHaveCount(0);
+});
+
+test("mostra atividade concluida no historico e o limpa", async ({ page }) => {
+  await openDestination(page, "activities");
+  await createActivity(page, "Agendar consulta");
+  await page.getByRole("button", { name: "Marcar Agendar consulta como concluida" }).click();
+  await page.getByTestId("app-header-back").click();
+  await openDestination(page, "history");
+  await expect(
+    page.getByTestId("history-screen").getByText("Agendar consulta", { exact: true }),
+  ).toBeVisible();
+  await page.getByTestId("history-clear").click();
+  await page.getByTestId("confirm-dialog-confirm").click();
+  await expect(page.getByText("Agendar consulta", { exact: true })).toHaveCount(0);
+});
