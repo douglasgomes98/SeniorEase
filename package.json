@@ -12,6 +12,7 @@
     "typecheck": "turbo run typecheck",
     "lint": "turbo run lint",
     "test": "turbo run test",
+    "test:e2e": "pnpm --filter @senior-ease/web test:e2e",
     "web:dev": "turbo run dev --filter=@senior-ease/web",
     "web:build": "turbo run build --filter=@senior-ease/web",
     "mobile:start": "turbo run start --filter=@senior-ease/mobile",
