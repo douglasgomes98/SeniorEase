@@ -30,6 +30,9 @@ jobs:
       - name: Instalar dependencias
         run: pnpm install --frozen-lockfile
 
+      - name: Executar testes
+        run: pnpm test
+
       - name: Auditar dependencias (OWASP A06)
         run: pnpm audit --prod --audit-level high || true
 
