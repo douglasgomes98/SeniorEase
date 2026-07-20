@@ -13,6 +13,7 @@ test("persiste personalizacao e aplica o modo simples na home", async ({ page })
   await expect(page.getByTestId("destination-history")).toHaveCount(0);
   await page.getByTestId("destination-personalization").click();
   await page.reload();
+  await openDestination(page, "personalization");
   await expect(page.getByText("Tamanho da fonte: 115%", { exact: true })).toBeVisible();
   await expect(page.getByTestId("contrast-high")).toHaveAttribute("aria-checked", "true");
   await expect(page.getByTestId("spacing-1.5")).toHaveAttribute("aria-checked", "true");
