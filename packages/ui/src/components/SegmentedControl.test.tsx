@@ -1,0 +1,40 @@
+import { describe, expect, it, vi } from "vitest";
+import { render, screen } from "@testing-library/react";
+import { type ReactElement } from "react";
+import { ThemeProvider } from "../theme/theme-context";
+import { SegmentedControl } from "./SegmentedControl";
+
+function renderThemed(ui: ReactElement) {
+  return render(
+    <ThemeProvider contrast="standard" fontScale={1} spacingScale={1}>
+      {ui}
+    </ThemeProvider>,
+  );
+}
+
+describe("SegmentedControl", () => {
+  it("exposes the group, options, selection, and 48dp target", () => {
+    const onChange = vi.fn();
+
+    renderThemed(
+      <SegmentedControl
+        accessibilityLabel="Contraste"
+        options={[
+          { value: "standard", label: "Padrao" },
+          { value: "high", label: "Maximo" },
+        ]}
+        value="standard"
+        onChange={onChange}
+      />,
+    );
+
+    expect(screen.getByRole("radiogroup", { name: "Contraste" })).toBeInTheDocument();
+    expect(screen.getByRole("radio", { name: "Padrao" })).toHaveAttribute(
+      "aria-checked",
+      "true",
+    );
+    expect(screen.getByRole("radio", { name: "Maximo" })).toHaveStyle({
+      minHeight: "48px",
+    });
+  });
+});
