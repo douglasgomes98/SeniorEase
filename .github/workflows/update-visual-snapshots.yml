@@ -1,0 +1,64 @@
+name: update-visual-snapshots
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Branch do PR que receberá os snapshots
+        required: true
+        default: master
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    env:
+      TARGET_REF: ${{ inputs.ref }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
+          fetch-depth: 0
+      - name: Validar PR aprovado
+        run: |
+          prs="$(gh pr list --head "$TARGET_REF" --state open --json number,labels)"
+          test "$(printf '%s' "$prs" | jq 'length')" -eq 1
+          printf '%s' "$prs" | jq -e '.[0].labels | map(.name) | index("visual-approved") != null'
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - name: Instalar dependências
+        run: pnpm install --frozen-lockfile
+      - name: Instalar Chromium
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Construir web
+        run: pnpm web:build
+      - name: Iniciar aplicações
+        run: |
+          pnpm --filter @senior-ease/web exec next start -p 3000 > /tmp/seniorease-next.log 2>&1 &
+          pnpm --filter @senior-ease/mobile exec expo start --web --port 8081 > /tmp/seniorease-expo.log 2>&1 &
+      - name: Aguardar aplicações
+        run: |
+          curl --fail --retry 30 --retry-delay 2 http://127.0.0.1:3000
+          curl --fail --retry 30 --retry-delay 2 http://127.0.0.1:8081
+      - name: Atualizar snapshots
+        run: pnpm visual:update
+      - name: Commitar snapshots
+        run: |
+          changed="$(git status --short -- 'e2e/**/*.png')"
+          if [ -z "$changed" ]; then
+            echo "Nenhum snapshot visual alterado."
+            exit 0
+          fi
+          git diff --check
+          git add e2e
+          git commit -m "feat: atualiza snapshots visuais"
+          git push origin "HEAD:${TARGET_REF}"
