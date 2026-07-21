@@ -22,6 +22,7 @@ docs/
 
 # Build e cache
 .turbo/
+.worktrees/
 dist/
 build/
 coverage/
