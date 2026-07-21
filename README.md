@@ -193,6 +193,18 @@ Next.js; para verificar a interatividade da Web use o build de producao
 
 ### E2E e regressao visual
 
+#### E2E funcional
+
+```
+pnpm test:e2e  # testa na Web criação, persistência e conclusão de atividades
+```
+
+O comando cria e inicia automaticamente a aplicação Web em produção. Os
+cenários usam armazenamento limpo e verificam atividades com passos, a
+persistência após recarregar a página e a execução guiada até a conclusão.
+
+#### Regressão visual
+
 Com Next.js em producao na porta 3000 e Expo Web na porta 8081:
 
 ```
