@@ -45,6 +45,10 @@ test("mostra atividade concluida no historico e o limpa", async ({ page }) => {
   await createActivity(page, "Agendar consulta");
   await page.getByRole("button", { name: "Marcar Agendar consulta como concluida" }).click();
   await page.getByTestId("app-header-back").click();
+  await openDestination(page, "personalization");
+  await page.getByRole("button", { name: "Pular tour" }).click();
+  await page.getByTestId("navigation-mode-standard").click();
+  await page.getByTestId("app-header-back").click();
   await openDestination(page, "history");
   await expect(
     page.getByTestId("history-screen").getByText("Agendar consulta", { exact: true }),
