@@ -1,5 +1,6 @@
 import {
   Pressable,
+  useWindowDimensions,
   View,
   type StyleProp,
   type ViewStyle,
@@ -41,13 +42,22 @@ export function SegmentedControl<V extends string | number>({
   style,
 }: SegmentedControlProps<V>) {
   const { colors, space, radii, ergonomics } = useTheme();
+  const { width } = useWindowDimensions();
+  const isCompact = width <= 600;
 
   return (
     <View
       accessibilityRole="radiogroup"
       accessibilityLabel={accessibilityLabel}
       testID={testID}
-      style={[{ flexDirection: "row", flexWrap: "wrap", gap: space.sm }, style]}
+      style={[
+        {
+          flexDirection: isCompact ? "column" : "row",
+          flexWrap: "wrap",
+          gap: space.sm,
+        },
+        style,
+      ]}
     >
       {options.map((option) => {
         const selected = option.value === value;
@@ -60,7 +70,8 @@ export function SegmentedControl<V extends string | number>({
             accessibilityLabel={option.label}
             aria-checked={selected}
             style={({ pressed }) => ({
-              flexGrow: 1,
+              flexGrow: isCompact ? 0 : 1,
+              width: isCompact ? "100%" : undefined,
               minHeight: ergonomics.touchTargetMin,
               paddingVertical: space.md,
               paddingHorizontal: space.md,

@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { type ReactElement } from "react";
+import * as ReactNative from "react-native";
 import { ThemeProvider } from "../theme/theme-context";
 import { SegmentedControl } from "./SegmentedControl";
 
@@ -13,6 +14,31 @@ function renderThemed(ui: ReactElement) {
 }
 
 describe("SegmentedControl", () => {
+  it("stacks options at the compact viewport breakpoint", () => {
+    vi.spyOn(ReactNative, "useWindowDimensions").mockReturnValue({
+      width: 600,
+      height: 844,
+      scale: 1,
+      fontScale: 1,
+    });
+
+    renderThemed(
+      <SegmentedControl
+        accessibilityLabel="Contraste"
+        options={[
+          { value: "standard", label: "Padrao" },
+          { value: "high", label: "Maximo" },
+        ]}
+        value="standard"
+        onChange={vi.fn()}
+      />,
+    );
+
+    expect(screen.getByRole("radiogroup", { name: "Contraste" })).toHaveStyle({
+      flexDirection: "column",
+    });
+  });
+
   it("exposes the group, options, selection, and 48dp target", () => {
     const onChange = vi.fn();
 
