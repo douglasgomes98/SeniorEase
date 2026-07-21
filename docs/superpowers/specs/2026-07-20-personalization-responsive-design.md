@@ -2,10 +2,10 @@
 
 ## Objetivo
 
-Impedir colisão, corte ou sobreposição dos rótulos da tela de personalização
-em português quando a largura é 390px e as preferências chegam a fonte 200% e
-espaçamento 150%. A correção deve valer no web e no mobile porque ambos usam a
-mesma UI compartilhada.
+Impedir colisão, corte ou sobreposição dos rótulos das telas de personalização
+e perfil em português quando a largura é 390px e as preferências chegam a
+fonte 200% e espaçamento 150%. A correção deve valer no web e no mobile porque
+ambos usam a mesma UI compartilhada.
 
 ## Escopo
 
@@ -16,9 +16,9 @@ mesma UI compartilhada.
 - Em espaço suficiente, preservar uma única linha; em espaço insuficiente,
   cada botão ocupa apenas a largura necessária e segue para a próxima linha.
 - Não criar variante nem prop específica da tela de personalização.
-- Adicionar cobertura de regressão visual em português para `web` e
-  `mobile-web`, no viewport de 390px, com `fontScale: 2` e
-  `spacingScale: 1.5`.
+- Adicionar cobertura de regressão visual para Personalização e Perfil, em
+  português, nos alvos `web-mobile` e `mobile-web-mobile`, com viewport de
+  390px, `fontScale: 2` e `spacingScale: 1.5`.
 
 ## Arquitetura e fluxo
 
@@ -26,20 +26,20 @@ mesma UI compartilhada.
 `PersonalizationView` continua apenas compondo a tela. `SegmentedControl`, em
 `packages/ui`, deixa de impor a distribuição rígida de largura igual e passa a
 usar quebra de linha no contêiner de opções. Assim, contraste, espaçamento e
-modo de navegação recebem o comportamento sem lógica duplicada em qualquer
-plataforma.
+modo de navegação, idioma, antecedência de lembretes e canal de notificação
+recebem o comportamento sem lógica duplicada em qualquer plataforma.
 
 Os testes visuais reutilizam a preparação por `localStorage` já usada em
-`e2e/visual.spec.ts`; um caso adicional inicializa as preferências no máximo e
-captura somente o viewport mobile para os dois endpoints já configurados. O
-caso padrão continua inalterado.
+`e2e/visual.spec.ts`; dois casos adicionais inicializam as preferências no
+máximo e capturam Personalização e Perfil somente no viewport mobile para os
+dois endpoints já configurados. Os casos padrão continuam inalterados.
 
 ## Verificação
 
 - Teste unitário do `SegmentedControl` confirma o estilo de quebra de linha
   juntamente com os contratos acessíveis existentes.
-- Snapshots do caso máximo em português confirmam que a tela inteira é
-  renderizada sem a sobreposição vista no snapshot atual.
+- Snapshots máximos em português confirmam que Personalização e Perfil são
+  renderizados sem a sobreposição vista nos snapshots atuais.
 - Executar o teste focado de UI e `pnpm visual:test`; em seguida, `pnpm lint`,
   `pnpm typecheck` e `pnpm test` antes da revisão.
 
