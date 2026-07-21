@@ -47,7 +47,7 @@ export function SegmentedControl<V extends string | number>({
       accessibilityRole="radiogroup"
       accessibilityLabel={accessibilityLabel}
       testID={testID}
-      style={[{ flexDirection: "row", gap: space.sm }, style]}
+      style={[{ flexDirection: "row", flexWrap: "wrap", gap: space.sm }, style]}
     >
       {options.map((option) => {
         const selected = option.value === value;
@@ -61,7 +61,6 @@ export function SegmentedControl<V extends string | number>({
             aria-checked={selected}
             style={({ pressed }) => ({
               flexGrow: 1,
-              flexBasis: 0,
               minHeight: ergonomics.touchTargetMin,
               paddingVertical: space.md,
               paddingHorizontal: space.md,

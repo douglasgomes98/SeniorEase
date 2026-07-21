@@ -28,7 +28,9 @@ describe("SegmentedControl", () => {
       />,
     );
 
-    expect(screen.getByRole("radiogroup", { name: "Contraste" })).toBeInTheDocument();
+    const group = screen.getByRole("radiogroup", { name: "Contraste" });
+    expect(group).toBeInTheDocument();
+    expect(group).toHaveStyle({ flexWrap: "wrap" });
     expect(screen.getByRole("radio", { name: "Padrao" })).toHaveAttribute(
       "aria-checked",
       "true",
