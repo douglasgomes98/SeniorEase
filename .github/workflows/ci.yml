@@ -1,0 +1,95 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - name: Instalar dependências
+        run: pnpm install --frozen-lockfile
+      - name: Executar lint
+        run: pnpm lint
+      - name: Verificar tipos
+        run: pnpm typecheck
+      - name: Executar testes
+        run: pnpm test
+
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - name: Instalar dependências
+        run: pnpm install --frozen-lockfile
+      - name: Instalar Chromium
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Executar fluxos e2e
+        run: pnpm test:e2e
+
+  visual:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - name: Instalar dependências
+        run: pnpm install --frozen-lockfile
+      - name: Instalar Chromium
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Construir web
+        run: pnpm web:build
+      - name: Iniciar aplicações
+        run: |
+          pnpm --filter @senior-ease/web exec next start -p 3000 > /tmp/seniorease-next.log 2>&1 &
+          pnpm --filter @senior-ease/mobile exec expo start --web --port 8081 > /tmp/seniorease-expo.log 2>&1 &
+      - name: Aguardar aplicações
+        run: |
+          curl --fail --retry 30 --retry-connrefused --retry-delay 2 http://127.0.0.1:3000
+          curl --fail --retry 30 --retry-connrefused --retry-delay 2 http://127.0.0.1:8081
+      - name: Executar regressão visual
+        run: pnpm visual:test
+      - name: Publicar relatório Playwright
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report
+          if-no-files-found: ignore
+          retention-days: 14
+      - name: Publicar resultados Playwright
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-results
+          path: test-results
+          if-no-files-found: ignore
+          retention-days: 14

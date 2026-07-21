@@ -31,6 +31,7 @@ export function AppHeader({
       testID={testID}
       style={{
         flexDirection: "row",
+        flexWrap: "wrap",
         alignItems: "center",
         gap: space.md,
         paddingHorizontal: space.lg,
@@ -51,7 +52,7 @@ export function AppHeader({
       <Text
         variant="title"
         accessibilityRole="header"
-        style={{ flexShrink: 1 }}
+        style={{ flexShrink: 1, minWidth: 0 }}
       >
         {title}
       </Text>

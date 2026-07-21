@@ -191,6 +191,33 @@ Observacao: em desenvolvimento a CSP restritiva bloqueia o Fast Refresh do
 Next.js; para verificar a interatividade da Web use o build de producao
 (`pnpm web:build`).
 
+### E2E e regressao visual
+
+#### E2E funcional
+
+```
+pnpm test:e2e  # testa na Web criação, persistência e conclusão de atividades
+```
+
+O comando cria e inicia automaticamente a aplicação Web em produção. Os
+cenários usam armazenamento limpo e verificam atividades com passos, a
+persistência após recarregar a página e a execução guiada até a conclusão.
+
+#### Regressão visual
+
+Com Next.js em producao na porta 3000 e Expo Web na porta 8081:
+
+```
+pnpm visual:test    # compara as 24 capturas aprovadas
+pnpm visual:update  # regenera capturas localmente
+```
+
+Todo push e pull request executa a CI, incluindo lint, tipos, testes e as
+capturas visuais. Em uma diferenca, consulte o artefato `playwright-report` no
+PR. Se a mudanca for intencional, aplique o rotulo `visual-approved` e execute
+manualmente o workflow `update-visual-snapshots` no branch do PR; ele gera as
+baselines Linux e envia um commit com as imagens atualizadas.
+
 ## Deploy
 
 - Web na Vercel: `vercel.json` configura o build via Turborepo e os cabecalhos

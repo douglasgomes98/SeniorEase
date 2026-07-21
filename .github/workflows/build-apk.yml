@@ -31,6 +31,9 @@ jobs:
       - name: Instalar dependencias
         run: pnpm install --frozen-lockfile
 
+      - name: Executar testes
+        run: pnpm test
+
       - name: Verificar tipos
         run: pnpm turbo run typecheck --filter=@senior-ease/mobile...
 
