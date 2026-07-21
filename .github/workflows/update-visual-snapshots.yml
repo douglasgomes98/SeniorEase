@@ -30,8 +30,6 @@ jobs:
           test "$(printf '%s' "$prs" | jq 'length')" -eq 1
           printf '%s' "$prs" | jq -e '.[0].labels | map(.name) | index("visual-approved") != null'
       - uses: pnpm/action-setup@v4
-        with:
-          version: 9
       - uses: actions/setup-node@v4
         with:
           node-version: 20
