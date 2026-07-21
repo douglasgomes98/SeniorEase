@@ -208,7 +208,7 @@ persistência após recarregar a página e a execução guiada até a conclusão
 Com Next.js em producao na porta 3000 e Expo Web na porta 8081:
 
 ```
-pnpm visual:test    # compara as 20 capturas aprovadas
+pnpm visual:test    # compara as 24 capturas aprovadas
 pnpm visual:update  # regenera capturas localmente
 ```
 

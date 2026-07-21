@@ -6,11 +6,12 @@ on:
       ref:
         description: Branch do PR que receberá os snapshots
         required: true
-        default: master
+        default: main
         type: string
 
 permissions:
   contents: write
+  pull-requests: read
 
 jobs:
   update:
@@ -47,8 +48,8 @@ jobs:
           pnpm --filter @senior-ease/mobile exec expo start --web --port 8081 > /tmp/seniorease-expo.log 2>&1 &
       - name: Aguardar aplicações
         run: |
-          curl --fail --retry 30 --retry-delay 2 http://127.0.0.1:3000
-          curl --fail --retry 30 --retry-delay 2 http://127.0.0.1:8081
+          curl --fail --retry 30 --retry-connrefused --retry-delay 2 http://127.0.0.1:3000
+          curl --fail --retry 30 --retry-connrefused --retry-delay 2 http://127.0.0.1:8081
       - name: Atualizar snapshots
         run: pnpm visual:update
       - name: Commitar snapshots

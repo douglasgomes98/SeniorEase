@@ -19,6 +19,7 @@ const viewports = [
 export default defineConfig({
   testDir: "./e2e",
   outputDir: "test-results",
+  workers: 1,
   forbidOnly: Boolean(process.env.CI),
   retries: process.env.CI ? 2 : 0,
   reporter: [["list"], ["html", { open: "never" }]],
